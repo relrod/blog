@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+if [ "$1" == "" ]; then
+  echo "Usage: new_blog_post.sh 'Title of the Post'"
+  exit 1
+fi
+
+cwd="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Taken from https://gist.github.com/saml/4674977
+title="$1"
+max_length="${2:-48}"
+slug="$({
+    tr '[A-Z]' '[a-z]' | tr -cs '[[:alnum:]]' '-'
+} <<< "$title")"
+slug="${slug##-}"
+slug="${slug%%-}"
+slug="${slug:0:$max_length}"
+
+date="$(date '+%Y-%m-%d')"
+file="$cwd/posts/$date-$slug.markdown"
+
+if [ -f "$file" ]; then
+  echo "A post with that title already exists from today's date."
+  exit 1
+fi
+
+echo "---"            > "$file"
+echo "title: $title" >> "$file"
+echo "tags: "        >> "$file"
+echo "---"           >> "$file"
+echo                 >> "$file"
+echo "Created: $file"
+echo "Done."
