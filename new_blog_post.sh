@@ -5,13 +5,13 @@ if [ "$1" == "" ]; then
   exit 1
 fi
 
-cwd="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cwd="$( cd "${BASH_SOURCE[0]%/*}" && pwd )"
 
 # Taken from https://gist.github.com/saml/4674977
 title="$1"
 max_length="${2:-48}"
 slug="$({
-    tr '[A-Z]' '[a-z]' | tr -cs '[[:alnum:]]' '-'
+    tr '[:upper:]' '[:lower:]' | tr -cs '[:alnum:]' '-'
 } <<< "$title")"
 slug="${slug##-}"
 slug="${slug%%-}"
