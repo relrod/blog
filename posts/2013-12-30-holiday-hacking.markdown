@@ -1,6 +1,6 @@
 ---
 title: Holiday Hacking
-tags: fedora, blog
+tags: fedora, blog, haskell
 ---
 
 This post is inspired by a similar one written by
