@@ -99,8 +99,8 @@ projects.
   [blogged about that](http://elrod.me/posts/2013-12-28-fedora-coprs-and-eval-dot-so.html),
   so I will keep this one short.
 - My friend Jim/KG4SGP came on IRC shorly after I posted that blog post, and
-  me how my blog worked. I explained that it was Jekyll and that if I were to
-  do it over again, I would choose Hakyll. But then I got thinking...
+  asked me how my blog worked. I explained that it was Jekyll and that if I
+  were to do it over again, I would choose Hakyll. But then I got thinking...
   "I have the time now, why *not* do it over again?"
   [And so it was](http://elrod.me/posts/2013-12-29-switching-to-hakyll.html).
 - I set up a beta deploy of the Haskell rewrite of the eval.so stuff. I won't
