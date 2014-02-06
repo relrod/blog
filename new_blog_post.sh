@@ -27,6 +27,7 @@ fi
 
 echo "---"            > "$file"
 echo "title: $title" >> "$file"
+echo "date: $date"   >> "$file"
 echo "tags: "        >> "$file"
 echo "---"           >> "$file"
 echo                 >> "$file"
