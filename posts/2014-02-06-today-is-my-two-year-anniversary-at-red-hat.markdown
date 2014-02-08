@@ -1,6 +1,6 @@
 ---
 title: Today is my two-year anniversary at Red Hat
-date: 2014-06-02
+date: 2014-02-06
 tags: fedora, open source
 ---
 
