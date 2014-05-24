@@ -20,7 +20,7 @@ executable blog
   main-is: site.hs
   ghc-options: -Wall -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.6 && <4.7
+      base >=4.6 && <5
     , hakyll >= 4.4.2.0
     , pandoc >= 1.12.2.1
   -- hs-source-dirs:      
