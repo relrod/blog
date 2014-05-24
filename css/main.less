@@ -24,12 +24,17 @@ h1.huge {
 .center { text-align: center; }
 
 .blog-navbar {
-    background-color: #3498db;
     .navbar-brand { font-weight: bold !important; }
     a {
-        color: #ecf0f1;
-        &:hover { background-color: #2980b9 !important; }
+        color: #333;
+        &:hover { color: #666; background-color: transparent !important; }
+        margin-left: 2px;
     }
+
+    a.github  { border-bottom: 3px solid #76AFD0; }
+    a.twitter { border-bottom: 3px solid #90A967; }
+    a.email   { border-bottom: 3px solid #D8A443; }
+    a.irc     { border-bottom: 3px solid #BE594E; }
 }
 
 .blog-l-border { border-left: 1px solid #eee; }
