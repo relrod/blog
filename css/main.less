@@ -1,19 +1,20 @@
 body {
-    font-family: 'Lato', 'Proxima Nova', sans-serif !important;
     background-color: #f7f7f7;
 }
 
 h1, h2, h3, h4, h5 {
-    font-family: 'Lato', 'Proxima Nova', sans-serif !important;
     margin: 0;
     padding: 0;
 }
 
+p, h1, h2, h3, h4 ,h5 {
+    font-family: sans-serif !important;
+}
+
 h1 {
-    text-align: center;
-    font-size: 3em;
+    font-size: 2em;
     font-weight: bold;
-    padding-top: 20px;
+    margin-bottom: 10px;
 }
 
 h1.huge {
@@ -21,25 +22,67 @@ h1.huge {
     padding: 20px 0;
 }
 
-.center { text-align: center; }
+.right { float: right; }
+.container {
+    margin: 30px auto;
+    max-width: 960px;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+    border-color: #ccc;
+}
+
+.blog-navbar-full {
+    background-color: #ffffff;
+    border-bottom: 1px solid #ccc;
+}
 
 .blog-navbar {
-    .navbar-brand { font-weight: bold !important; }
+    max-width: 960px;
+    line-height: 40px;
+    margin: 0 auto;
+
     a {
         color: #333;
         &:hover { color: #666; background-color: transparent !important; }
-        margin-left: 2px;
     }
 
-    a.github  { border-bottom: 3px solid #76AFD0; }
-    a.twitter { border-bottom: 3px solid #90A967; }
-    a.email   { border-bottom: 3px solid #D8A443; }
-    a.irc     { border-bottom: 3px solid #BE594E; }
+    .pure-menu-heading {
+        font-size: 1.3em;
+        padding: 0;
+    }
+
+    .pure-menu-open {
+        background: transparent;
+    }
+
+    ul {
+        float: right;
+        .github   { border-bottom: 2px solid #76AFD0; }
+        .twitter  { border-bottom: 2px solid #90A967; }
+        .email    { border-bottom: 2px solid #D8A443; }
+        .linkedin { border-bottom: 2px solid #BE594E; }
+
+        li span {
+            padding-bottom: 3px;
+        }
+
+        li a {
+
+        }
+    }
 }
 
 .blog-l-border { border-left: 1px solid #eee; }
 
-footer { margin: 15px 0; }
+footer {
+}
 
 /**
  * This roughly implements the GitHub color theme for highglighting-kate.
