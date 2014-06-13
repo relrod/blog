@@ -38,7 +38,7 @@ main = hakyll $ do
                 >>= relativizeUrls
 
 
-    match "index.html" $ do
+    match "*.html" $ do
         route $ setExtension "html"
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
