@@ -25,11 +25,11 @@ if [ -f "$file" ]; then
   exit 1
 fi
 
-echo "---"            > "$file"
-echo "title: $title" >> "$file"
-echo "date: $date"   >> "$file"
-echo "tags: "        >> "$file"
-echo "---"           >> "$file"
-echo                 >> "$file"
+echo "---"                  > "$file"
+echo "title: $title"       >> "$file"
+echo "Author: Ricky Elrod" >> "$file"
+echo "tags: "              >> "$file"
+echo "---"                 >> "$file"
+echo                       >> "$file"
 echo "Created: $file"
 echo "Done."
