@@ -1,6 +1,5 @@
 ---
 title: Fedora Jenkins-Fedmsg Enablement
-date: 2014-07-18
 tags: fedora
 ---
 
