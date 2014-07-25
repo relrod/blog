@@ -20,6 +20,8 @@ slug="${slug:0:$max_length}"
 date="$(date '+%Y-%m-%d')"
 file="$cwd/posts/$date-$slug.markdown"
 
+longdate="$(date '+%B %d, %Y')"
+
 if [ -f "$file" ]; then
   echo "A post with that title already exists from today's date."
   exit 1
@@ -27,7 +29,8 @@ fi
 
 echo "---"                  > "$file"
 echo "title: $title"       >> "$file"
-echo "Author: Ricky Elrod" >> "$file"
+echo "author: Ricky Elrod" >> "$file"
+echo "date: $longdate"     >> "$file"
 echo "tags: "              >> "$file"
 echo "---"                 >> "$file"
 echo                       >> "$file"
