@@ -9,6 +9,10 @@ main = hakyll $ do
         route   idRoute
         compile copyFileCompiler
 
+    match "static/*" $ do
+        route   idRoute
+        compile copyFileCompiler
+
     match "css/*" $ do
         route   idRoute
         compile compressCssCompiler
@@ -22,6 +26,28 @@ main = hakyll $ do
             >>= loadAndApplyTemplate "templates/post.html"    (postCtx tags)
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
             >>= relativizeUrls
+
+    match "talks/*" $ do
+        route $ setExtension "html"
+        compile $ pandocCompilerWith defaultHakyllReaderOptions {readerSmart = False} defaultHakyllWriterOptions
+            >>= saveSnapshot "content"
+            >>= loadAndApplyTemplate "templates/talk.html"    defaultContext
+            >>= loadAndApplyTemplate "templates/default.html" defaultContext
+            >>= relativizeUrls
+
+    create ["talk-archive.html"] $ do
+        route idRoute
+        compile $ do
+            talks <- recentFirst =<< loadAll "talks/*"
+            let archiveCtx =
+                    listField "talks" defaultContext (return talks) `mappend`
+                    constField "title" "Talks" `mappend`
+                    defaultContext
+
+            makeItem ""
+                >>= loadAndApplyTemplate "templates/talk-archive.html" archiveCtx
+                >>= loadAndApplyTemplate "templates/default.html" archiveCtx
+                >>= relativizeUrls
 
     create ["archive.html"] $ do
         route idRoute
@@ -41,9 +67,11 @@ main = hakyll $ do
     match "*.html" $ do
         route $ setExtension "html"
         compile $ do
+            talks <- recentFirst =<< loadAll "talks/*"
             posts <- recentFirst =<< loadAll "posts/*"
             let indexCtx =
                     listField "posts" (postCtx tags) (return posts) `mappend`
+                    listField "talks" defaultContext (return talks) `mappend`
                     constField "title" "Home"                `mappend`
                     defaultContext
 
