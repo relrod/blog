@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
-import           Data.Monoid ((<>), mappend, mconcat)
+import           Data.Monoid ((<>), mconcat)
 import           Hakyll
 import           Text.Pandoc.Options (readerSmart)
 
@@ -40,8 +40,8 @@ main = hakyll $ do
         compile $ do
             talks <- recentFirst =<< loadAll "talks/*"
             let archiveCtx =
-                    listField "talks" defaultContext (return talks) `mappend`
-                    constField "title" "Talks" `mappend`
+                    listField "talks" defaultContext (return talks) <>
+                    constField "title" "Talks" <>
                     defaultContext
 
             makeItem ""
@@ -54,8 +54,8 @@ main = hakyll $ do
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
             let archiveCtx =
-                    listField "posts" (postCtx tags) (return posts) `mappend`
-                    constField "title" "Archives"            `mappend`
+                    listField "posts" (postCtx tags) (return posts) <>
+                    constField "title" "Archives" <>
                     defaultContext
 
             makeItem ""
@@ -70,9 +70,9 @@ main = hakyll $ do
             talks <- recentFirst =<< loadAll "talks/*"
             posts <- recentFirst =<< loadAll "posts/*"
             let indexCtx =
-                    listField "posts" (postCtx tags) (return posts) `mappend`
-                    listField "talks" defaultContext (return talks) `mappend`
-                    constField "title" "Home"                `mappend`
+                    listField "posts" (postCtx tags) (return posts) <>
+                    listField "talks" defaultContext (return talks) <>
+                    constField "title" "Home" <>
                     defaultContext
 
             getResourceBody
