@@ -1,7 +1,8 @@
 {-# LANGUAGE OverloadedStrings #-}
-import           Data.Monoid ((<>), mconcat)
-import           Hakyll
-import           Text.Pandoc.Options (readerSmart)
+import qualified Data.Map as M
+import Data.Monoid ((<>), mconcat)
+import Hakyll
+import Text.Pandoc.Options (readerSmart)
 
 main :: IO ()
 main = hakyll $ do
@@ -21,11 +22,16 @@ main = hakyll $ do
 
     match "posts/*" $ do
         route $ setExtension "html"
-        compile $ pandocCompilerWith defaultHakyllReaderOptions {readerSmart = False} defaultHakyllWriterOptions
-            >>= saveSnapshot "content"
-            >>= loadAndApplyTemplate "templates/post.html"    (postCtx tags)
-            >>= loadAndApplyTemplate "templates/default.html" defaultContext
-            >>= relativizeUrls
+        compile $ do
+            let safetitle = field "safetitle" $ \item -> do
+                    metadata <- getMetadata (itemIdentifier item)
+                    let title = M.findWithDefault "No title" "title" metadata
+                    return $ concatMap (\x -> if x == '\'' then "\\'" else [x]) title
+            pandocCompilerWith defaultHakyllReaderOptions {readerSmart = False} defaultHakyllWriterOptions
+                >>= saveSnapshot "content"
+                >>= loadAndApplyTemplate "templates/post.html"    (postCtx tags <> safetitle)
+                >>= loadAndApplyTemplate "templates/default.html" defaultContext
+                >>= relativizeUrls
 
     match "talks/*" $ do
         route $ setExtension "html"
