@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 import qualified Data.Map as M
-import Data.Monoid ((<>), mconcat)
+import Data.Monoid ((<>))
 import Hakyll
 import Text.Pandoc.Options (readerSmart)
 
