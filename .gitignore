@@ -13,4 +13,4 @@ _cache/
 _site/
 
 # Posts not meant to go live yet
-posts/2014-12-31*
+draft-posts
