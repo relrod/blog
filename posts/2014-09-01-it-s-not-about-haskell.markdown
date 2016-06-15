@@ -7,7 +7,7 @@ tags: haskell, functional programming, compsci
 
 Sometimes on Twitter and IRC, I see people say to my friends within the
 functional programming community (or to me directly) something like "It's not
-<language> so it must suck, right?" This line of reasoning is a
+$language so it must suck, right?" This line of reasoning is a
 [fallacy](https://yourlogicalfallacyis.com/strawman), but I wish to debunk it
 beyond passing it off as "fallacy, go away!"
 
