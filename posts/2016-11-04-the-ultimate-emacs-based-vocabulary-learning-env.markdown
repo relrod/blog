@@ -22,7 +22,7 @@ this approach, but modified it and actually started writing the vocabulary (and
 related notes) in a physical notebook. But I thought I could do a bit
 better. Godmy has also spoken about how having *quick* access to look up words
 and etymology was vital to his studying process. I use Duck Duck Go, so I very
-often type `!wt foo` or `!wo foo` for looking up words on wiktionary or
+often type `!wt foo` or `!eo foo` for looking up words on wiktionary or
 etymonline, respectively.
 
 Earlier today I had a random thought, though. Similar to Godmy's spreadsheet
