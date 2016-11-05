@@ -36,7 +36,7 @@ first thought I had in using Emacs for this was "I need a way to launch a web
 browser with wiktionary (and/or etymonline) for the word under the cursor." I
 am not an emacs lisp expert, so I did some searching around. Ultimately I came
 up with the following function (based
-on [this](http://ergoemacs.org/emacs/emacs_lookup_ref.html):
+on [this](http://ergoemacs.org/emacs/emacs_lookup_ref.html)):
 
 ```elisp
 (defun lookup-wiktionary ()
