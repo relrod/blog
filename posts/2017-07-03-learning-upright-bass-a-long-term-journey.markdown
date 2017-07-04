@@ -41,10 +41,10 @@ drum set. However, I knew nothing about music, and when my mom and I moved to
 Ohio back in 2004, we didn't take it with us, because I never played it.)
 
 More recently, I've gotten into bass. Another friend, who moved to Germany a few
-years back, gave me a good deal on a bass that he was unable to take with
-him. This was my foray into the world of bass playing at all. I started to teach
-myself scales and listen closely to Motown and blues basslines to try to emulate
-the greats like James Jamerson.
+years back, gave me a good deal on an electric bass that he was unable to take
+with him. This was my foray into the world of bass playing at all. I started to
+teach myself scales and listen closely to Motown and blues basslines to try to
+emulate the greats like James Jamerson.
 
 However, as I have grown as a dancer and got to see more and more live swing
 bands, every time, I had been infatuated by the sound of the upright bass. It
