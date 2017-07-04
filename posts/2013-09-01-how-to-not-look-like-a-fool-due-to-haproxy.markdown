@@ -42,7 +42,8 @@ that it had pulled the app server out of its internal round-robin.
 I saw this and instantly breathed a sigh of relief:
 
 <img src="https://images.srv1.elrod.me/i-love-haproxy-so-much.png"
-     alt="haproxy saves the day" />
+     alt="haproxy saves the day" 
+	 style="width: 100%;" />
 
 I added the package requirement to the Puppet manifest and re-ran Puppet on
 app01. A few seconds and a haproxy-status-page refresh later, all was green
