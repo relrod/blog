@@ -41,7 +41,8 @@ that it had pulled the app server out of its internal round-robin.
 
 I saw this and instantly breathed a sigh of relief:
 
-{% img http://images.srv1.elrod.me/i-love-haproxy-so-much.png haproxy saves the day %}
+<img src="https://images.srv1.elrod.me/i-love-haproxy-so-much.png"
+     alt="haproxy saves the day" />
 
 I added the package requirement to the Puppet manifest and re-ran Puppet on
 app01. A few seconds and a haproxy-status-page refresh later, all was green
@@ -79,11 +80,11 @@ your user page in the Fedora Wiki.
 
 Simply add:
 
-`{{ {{ #fedorabadges: your_fas_username  }}}}`
+`{{ #fedorabadges: your_fas_username }}`
 
 where you want them to appear, and
 
-`{{ {{ #fedorabadgescount: your_fas_username  }}}}`
+`{{ #fedorabadgescount: your_fas_username }}`
 
 anywhere you want a count of your badges to appear.
 
