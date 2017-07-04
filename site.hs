@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
-import qualified Data.Map as M
+import Data.Maybe (fromMaybe)
 import Data.Monoid ((<>))
 import Hakyll
 import Text.Pandoc.Options (readerSmart)
@@ -25,7 +25,7 @@ main = hakyll $ do
         compile $ do
             let safetitle = field "safetitle" $ \item -> do
                     metadata <- getMetadata (itemIdentifier item)
-                    let title = M.findWithDefault "No title" "title" metadata
+                    let title = fromMaybe "No title" (lookupString "title" metadata)
                     return $ concatMap (\x -> if x == '\'' then "\\'" else [x]) title
             pandocCompilerWith defaultHakyllReaderOptions {readerSmart = False} defaultHakyllWriterOptions
                 >>= saveSnapshot "content"
