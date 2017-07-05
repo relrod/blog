@@ -6,6 +6,10 @@ import Text.Pandoc.Options (readerSmart)
 
 main :: IO ()
 main = hakyll $ do
+    match "robots.txt" $ do
+        route   idRoute
+        compile copyFileCompiler
+
     match "images/*" $ do
         route   idRoute
         compile copyFileCompiler
@@ -32,6 +36,20 @@ main = hakyll $ do
                 >>= loadAndApplyTemplate "templates/post.html"    (postCtx tags <> safetitle)
                 >>= loadAndApplyTemplate "templates/default.html" defaultContext
                 >>= relativizeUrls
+
+    match "drafts/*.markdown" $ do
+        route $ setExtension "html"
+        compile $ do
+            let safetitle = field "safetitle" $ \item -> do
+                    metadata <- getMetadata (itemIdentifier item)
+                    let title = fromMaybe "No title" (lookupString "title" metadata)
+                    return $ concatMap (\x -> if x == '\'' then "\\'" else [x]) title
+            pandocCompilerWith defaultHakyllReaderOptions {readerSmart = False} defaultHakyllWriterOptions
+                >>= saveSnapshot "content"
+                >>= loadAndApplyTemplate "templates/post.html"    (postCtx tags <> safetitle)
+                >>= loadAndApplyTemplate "templates/default.html" defaultContext
+                >>= relativizeUrls
+
 
     match "talks/*" $ do
         route $ setExtension "html"
