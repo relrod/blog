@@ -169,6 +169,29 @@ particularly important. The other settings (equalization) can be set/faded when
 I get back if an adjustment is needed. **But not blasting everyone out and
 making dancers not miss the beginning of the song is critical**.
 
+### Using Multiple Programs
+
+Sometimes you'll want to play a song, either requested or not, that you don't
+have in your main library. For this, something like Spotify can be great. You
+can either use venue-provided wifi, if the venue does, indeed, provide wifi, or
+tether from another device.
+
+Make sure you know the interactions between programs. For example, in certain
+configurations, Mixxx on Linux won't go through the usual PulseAudio system and
+will hold a lock of the soundcard and not allow Spotify to play. **Test the
+setup before you try to use it**. Also know that audio levels between programs
+can be quite different. If possible, when switching between programs, keep a
+physical hand on the volume knob of whatever you are plugged into.
+
+When using Spotify, I usually create a new temporary playlist while my other
+program is playing. I'll drag a song or two into the playlist, disable "Auto DJ"
+so my DJ program won't move on to the next song. At thre end of the current
+song, I'll start Spotify and drag its volume up to an acceptable level. When I
+am ready to go back, I'll have a song queued up in my DJ program, wait until the
+Spotify song is done, pause Spotify, switch over, and re-enable "Auto DJ."
+
+Getting this seamless can be tricky --- practice beforehand.
+
 ## Know How to Read Your Crowd
 
 Reading the crowd is one of the hardest things about DJing a dance. Like playing
@@ -194,3 +217,58 @@ mixed set of constructive criticism, I will keep going as planned**. This isn't
 to say that mixed criticism is bad, but simply that I am trying to play to the
 crowd collectively, and if only one person has that complaint and nobody else,
 then there's a chance that I am doing my job.
+
+## Interacting With People
+
+At a social event like swing dancing, you sometimes have to actually interact
+with people in real life. In our fast-paced technological world, this is unheard
+of. You're on your own.
+
+I kid.
+
+Mostly.
+
+There are two kinds of DJ interactions I'll discuss briefly. First, sometimes I
+will have people come up to me and ask me about the song I'm playing. **I love
+when people do this**. It's so much nicer than people secretly-but-not-really
+SoundHounding or Shazaming my set. When someone asks me about a song, I will try
+to go out of my way to thank them for doing so.
+
+The other kind of interaction is specifically for DJing band breaks. When I DJ
+band breaks, I try to interact with the band leader if I can during a band
+break. One of the best compliments a DJ can receive is from a band leader saying
+that they are enjoying your break set. One thing that I try to strive for is to
+have the band start playing along the last song of my break set when they are
+about to come back. This can be really cool.
+
+## Not Being the Only DJ
+
+Some venues have multiple DJs for a night. When you're the first DJ, I've found
+that you can just DJ as normal, starting off however you want. When you are the
+second DJ, however, it can be helpful to try and pick up from where the previous
+DJ left off, in terms of energy, speed, and so on, so that the transition isn't
+too jarring. I try not to repeat songs the first DJ played, though if I do, I
+ensure that it is a very different version. The music selection of jazz, swing,
+and blues, is enormous. Generally avoiding duplicates is pretty trivial. That
+brings me to...
+
+## Music Selection
+
+I've seen posts by people saying things like "Please don't ever play broadway
+musical songs." I think that guidelines like this are, well, largely
+misguided. In fact, many classes from the thirties, like "Let's Do It (Let's
+Fall In Love)," and "This Can't Be Love," originally appeared in musicals. Cole
+Porter's dayjob, in fact, was to write songs for musicals.
+
+If I were forced to make a guideline that encompasses this kind of thing, I'd
+say "have a large enough variety that you aren't only playing songs from
+broadway musicals [or any other one source]."
+
+I try to play music that is true to the genre of the dance I am DJing. If I'm
+DJing a swing dance, I'm less apt to want to play Latin or pop music or anything
+that doesn't have a swung rhythm (I'm looking at you, electro-swing). If I'm
+playing a blues dance, I'm less apt to play an upbeat Lindy song. A lot of this
+is to your discretion, but staying true to the genre is something that all of my
+favorite DJs have in common. This can be challenging when you consider requests
+(see above) for out-of-genre songs, and in fact, requests are usually the only
+time I will sometimes venture out of the genre.
