@@ -76,8 +76,8 @@ main = hakyll $ do
             talks <- recentFirst =<< loadAll "talks/*"
             posts <- recentFirst =<< loadAll "posts/*"
             let indexCtx =
-                    listField "posts" (postCtx tags) (return posts) <>
-                    listField "talks" defaultContext (return talks) <>
+                    listField "posts" (postCtx tags) (return (take 10 posts)) <>
+                    listField "talks" defaultContext (return (take 10 talks)) <>
                     constField "title" "Home" <>
                     defaultContext
 
@@ -132,7 +132,7 @@ feedConfiguration title = FeedConfiguration
     , feedDescription = "FOSS, Fedora, (Functional) Programming"
     , feedAuthorName  = "Ricky Elrod"
     , feedAuthorEmail = "ricky@elrod.me"
-    , feedRoot        = "http://blog.elrod.me"
+    , feedRoot        = "https://elrod.me"
     }
 
 feedCtx :: Context String
