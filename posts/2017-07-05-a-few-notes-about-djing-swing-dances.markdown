@@ -3,6 +3,7 @@ title: A Few Notes About DJing Swing Dances
 author: Ricky Elrod
 date: Wed, 05 Jul 2017 05:24:44 -0400
 tags: swing, swing dancing, music, djing
+draft: true
 ---
 
 I started swing dancing back in March of 2015, and for reasons I won't get into

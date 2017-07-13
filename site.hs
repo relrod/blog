@@ -1,8 +1,20 @@
 {-# LANGUAGE OverloadedStrings #-}
+import Control.Monad (filterM)
+import Data.Char (toLower)
 import Data.Maybe (fromMaybe)
 import Data.Monoid ((<>))
 import Hakyll
 import Text.Pandoc.Options (readerSmart)
+
+itemIsDraft :: MonadMetadata m => Item a -> m Bool
+itemIsDraft item = do
+  md <- getMetadata (itemIdentifier item)
+  return . isDraft $ md
+
+isDraft :: Metadata -> Bool
+isDraft md =
+  let draft = fromMaybe "false" (lookupString "draft" md)
+  in map toLower draft == "true"
 
 main :: IO ()
 main = hakyll $ do
@@ -25,7 +37,10 @@ main = hakyll $ do
     tags <- buildTags "posts/*" (fromCapture "tags/*.html")
 
     match "posts/*" $ do
-        route $ setExtension "html"
+        route . metadataRoute $ \md ->
+          if isDraft md
+          then gsubRoute "posts/" (const "drafts/") `composeRoutes` setExtension "html"
+          else setExtension "html"
         compile $ do
             let safetitle = field "safetitle" $ \item -> do
                     metadata <- getMetadata (itemIdentifier item)
@@ -36,20 +51,6 @@ main = hakyll $ do
                 >>= loadAndApplyTemplate "templates/post.html"    (postCtx tags <> safetitle)
                 >>= loadAndApplyTemplate "templates/default.html" defaultContext
                 >>= relativizeUrls
-
-    match "drafts/*.markdown" $ do
-        route $ setExtension "html"
-        compile $ do
-            let safetitle = field "safetitle" $ \item -> do
-                    metadata <- getMetadata (itemIdentifier item)
-                    let title = fromMaybe "No title" (lookupString "title" metadata)
-                    return $ concatMap (\x -> if x == '\'' then "\\'" else [x]) title
-            pandocCompilerWith defaultHakyllReaderOptions {readerSmart = False} defaultHakyllWriterOptions
-                >>= saveSnapshot "content"
-                >>= loadAndApplyTemplate "templates/post.html"    (postCtx tags <> safetitle)
-                >>= loadAndApplyTemplate "templates/default.html" defaultContext
-                >>= relativizeUrls
-
 
     match "talks/*" $ do
         route $ setExtension "html"
@@ -76,7 +77,9 @@ main = hakyll $ do
     create ["archive.html"] $ do
         route idRoute
         compile $ do
-            posts <- recentFirst =<< loadAll "posts/*"
+            posts <- loadAll "posts/*" >>= \posts -> do
+              recent <- recentFirst posts
+              filterM (\x -> not <$> itemIsDraft x) recent
             let archiveCtx =
                     listField "posts" (postCtx tags) (return posts) <>
                     constField "title" "Archives" <>
@@ -92,7 +95,9 @@ main = hakyll $ do
         route $ setExtension "html"
         compile $ do
             talks <- recentFirst =<< loadAll "talks/*"
-            posts <- recentFirst =<< loadAll "posts/*"
+            posts <- loadAll "posts/*" >>= \posts -> do
+              recent <- recentFirst posts
+              filterM (\x -> not <$> itemIsDraft x) recent
             let indexCtx =
                     listField "posts" (postCtx tags) (return (take 10 posts)) <>
                     listField "talks" defaultContext (return (take 10 talks)) <>
@@ -109,7 +114,9 @@ main = hakyll $ do
 
         route idRoute
         compile $ do
-            posts <- recentFirst =<< loadAll pattern
+            posts <- loadAll pattern >>= \posts -> do
+              recent <- recentFirst posts
+              filterM (\x -> not <$> itemIsDraft x) recent
             let ctx =
                     listField "posts" (postCtx tags) (return posts) <>
                     constField "title" title <>
