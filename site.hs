@@ -54,6 +54,7 @@ main = hakyll $ do
         compile $ do
             sets <- reverse <$> loadAll "dj-sets/*.csv"
             let archiveCtx =
+                    constField "title" "DJ Setlists" <>
                     listField "sets" defaultContext (return sets) <>
                     defaultContext
 
