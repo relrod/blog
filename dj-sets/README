@@ -1,0 +1,6 @@
+Depends on relrod/mixxxcsvlist's `setlist-to-website`.
+
+- Export csv from mixxx-git
+- Run setlist-to-website on it
+- Add metadata to top
+- Boom

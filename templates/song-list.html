@@ -1,0 +1,31 @@
+<h1>$title$ DJ Set for $venue$</h1>
+<small>Total duration: $totalduration$</small>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-sm">
+    <thead class="thead-default">
+      <tr>
+        <th>#</th>
+        <th>Title</th>
+        <th>Artist</th>
+        <th>Album</th>
+        <th>BPM</th>
+        <th>Key</th>
+        <th>Duration</th>
+      </tr>
+    </thead>
+    <tbody class="small">
+      $for(songs)$
+      <tr>
+        <td>$number$</td>
+        <td>$title$</td>
+        <td>$artist$</td>
+        <td>$album$</td>
+        <td>$bpm$</td>
+        <td>$key$</td>
+        <td>$duration$</td>
+      </tr>
+      $endfor$
+    </tbody>
+  </table>
+</div>

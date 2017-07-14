@@ -6,6 +6,8 @@ import Data.Monoid ((<>))
 import Hakyll
 import Text.Pandoc.Options (readerSmart)
 
+import DJSet
+
 itemIsDraft :: MonadMetadata m => Item a -> m Bool
 itemIsDraft item = do
   md <- getMetadata (itemIdentifier item)
@@ -33,6 +35,32 @@ main = hakyll $ do
     match "css/*" $ do
         route   idRoute
         compile compressCssCompiler
+
+    match "dj-sets/*.csv" $ do
+        route $ setExtension "html"
+        compile $ do
+          set <- rawDjSet
+          let total = totalDuration set
+              songs = listField "songs" songContext (djSet set)
+              total' = constField "totalduration" total
+              ctx = songs <> total' <> defaultContext
+          makeItem ""
+            >>= loadAndApplyTemplate "templates/song-list.html" ctx
+            >>= loadAndApplyTemplate "templates/default.html" ctx
+            >>= relativizeUrls
+
+    create ["dj-sets/index.html"] $ do
+        route idRoute
+        compile $ do
+            sets <- reverse <$> loadAll "dj-sets/*.csv"
+            let archiveCtx =
+                    listField "sets" defaultContext (return sets) <>
+                    defaultContext
+
+            makeItem ""
+                >>= loadAndApplyTemplate "templates/dj-set-archive.html" archiveCtx
+                >>= loadAndApplyTemplate "templates/default.html" archiveCtx
+                >>= relativizeUrls
 
     tags <- buildTags "posts/*" (fromCapture "tags/*.html")
 
