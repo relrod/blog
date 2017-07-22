@@ -1,19 +1,13 @@
 .cardo { font-family: Cardo, serif !important; }
 
-body {
-    background-color: #f7f7f7;
-}
+body { background-color: #f7f7f7; }
 
 img.home { width: 100%; }
 img { max-width: 100%; }
 
-h1, h2, h3, h4, h5 {
-    font-family: Cardo, serif !important;
-}
+h1, h2, h3, h4, h5 { font-family: Cardo, serif !important; }
 
-p {
-    font-family: sans-serif !important;
-}
+p { font-family: sans-serif !important; }
 
 h1 {
     font-size: 2em;
@@ -27,7 +21,6 @@ h1.huge {
 }
 
 .right { float: right; }
-
 
 hr {
     display: block;
@@ -46,48 +39,36 @@ hr {
     height: 40px !important;
 }
 
-.blog-navbar {
-    margin-bottom: 20px;
+.blog-navbar { margin-bottom: 20px; }
+.blog-navbar a { color: #333 !important; }
+.blog-navbar a:hover {
+    color: #666 !important;
+    background-color: transparent !important;
+}
+.blog-navbar ul .github   { border-bottom: 2px solid #76AFD0; }
+.blog-navbar ul .twitter  { border-bottom: 2px solid #90A967; }
+.blog-navbar ul .email    { border-bottom: 2px solid #D8A443; }
+.blog-navbar ul .linkedin { border-bottom: 2px solid #BE594E; }
+.blog-navbar ul .blog     { border-bottom: 2px solid #BE59BE; }
+.blog-navbar ul .djsets   { border-bottom: 2px solid #AAAAAA; }
+.blog-navbar ul li .nav-link {
+    padding: 0 15px !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
 
-    a {
-        color: #333 !important;
-        &:hover { color: #666 !important; background-color: transparent !important; }
-    }
-
-    ul {
-        .github   { border-bottom: 2px solid #76AFD0; }
-        .twitter  { border-bottom: 2px solid #90A967; }
-        .email    { border-bottom: 2px solid #D8A443; }
-        .linkedin { border-bottom: 2px solid #BE594E; }
-        .blog     { border-bottom: 2px solid #BE59BE; }
-        .djsets   { border-bottom: 2px solid #AAAAAA; }
-
-	li .nav-link {
-	    padding: 0 15px !important;
-	    margin-top: 0 !important;
-	    margin-bottom: 0 !important;
-	}
-
-	.blog-nav-item {
-	    margin: 0 2px !important;
-	    padding-bottom: 0 !important;
-	    margin-bottom: 0 !important;
-
-	}
-    }
+.blog-navbar ul .blog-nav-item {
+    margin: 0 2px !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
 }
 
 .blog-l-border { border-left: 1px solid #eee; }
 
-.blog-sub {
-    h3 { margin-bottom: 10px; }
-    h2 {
-	text-align: center;
-	padding: 45px 0;
-    }
-}
-
-footer {
+.blog-sub h3 { margin-bottom: 10px; }
+.blog-sub h2 {
+    text-align: center;
+    padding: 45px 0;
 }
 
 /**
@@ -99,8 +80,8 @@ footer {
  * -CodeBlock
  */
 code {
-  font-family: Consolas, "Liberation Mono", Courier, monospace;
-  color: #009999; /* Default color */
+    font-family: Consolas, "Liberation Mono", Courier, monospace;
+    color: #009999; /* Default color */
 }
 .kw { font-weight: bold; }
 .dt { color: #445588; font-weight: bold; }
