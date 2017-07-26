@@ -9,6 +9,15 @@ h1, h2, h3, h4, h5 { font-family: Cardo, serif !important; }
 
 p { font-family: sans-serif !important; }
 
+blockquote {
+    margin-left: 15px;
+    padding-left: 10px;
+    background-color: #ddd;
+    border-left: 5px solid #1332a4;
+}
+
+blockquote p { font-family: serif !important; }
+
 h1 {
     font-size: 2em;
     font-weight: bold;
