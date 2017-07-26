@@ -112,7 +112,7 @@ reasons:
 
 With all of this published research stating that password expiry actively
 **decreases** security, for the reasons listed immediately above, **I implore
-the YSU ITS to please reconsider, and revert this policy.**
+the YSU ITS to please reconsider and revert this policy.**
 
 Additionally, the original 2014 email sent out to faculty and students mentioned
 that "[this] effort was undertaken to meet a myriad of federal, state, and
