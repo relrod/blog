@@ -186,7 +186,7 @@ physical hand on the volume knob of whatever you are plugged into.
 
 When using Spotify, I usually create a new temporary playlist while my other
 program is playing. I'll drag a song or two into the playlist, disable "Auto DJ"
-so my DJ program won't move on to the next song. At thre end of the current
+so my DJ program won't move on to the next song. At the end of the current
 song, I'll start Spotify and drag its volume up to an acceptable level. When I
 am ready to go back, I'll have a song queued up in my DJ program, wait until the
 Spotify song is done, pause Spotify, switch over, and re-enable "Auto DJ."
