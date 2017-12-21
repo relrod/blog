@@ -9,4 +9,5 @@ if [ ! -f "$cwd/dist/build/blog/blog" ]; then
   exit 1
 fi
 
+"$cwd/dist/build/blog/blog" clean
 "$cwd/dist/build/blog/blog" watch
