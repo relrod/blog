@@ -4,7 +4,6 @@ import Data.Char (toLower)
 import Data.Maybe (fromMaybe)
 import Data.Monoid ((<>))
 import Hakyll
-import Text.Pandoc.Options (readerSmart)
 
 import DJSet
 
@@ -75,7 +74,7 @@ main = hakyll $ do
                     metadata <- getMetadata (itemIdentifier item)
                     let title = fromMaybe "No title" (lookupString "title" metadata)
                     return $ concatMap (\x -> if x == '\'' then "\\'" else [x]) title
-            pandocCompilerWith defaultHakyllReaderOptions {readerSmart = False} defaultHakyllWriterOptions
+            pandocCompilerWith defaultHakyllReaderOptions defaultHakyllWriterOptions
                 >>= saveSnapshot "content"
                 >>= loadAndApplyTemplate "templates/post.html"    (postCtx tags <> safetitle)
                 >>= loadAndApplyTemplate "templates/default.html" defaultContext
@@ -83,7 +82,7 @@ main = hakyll $ do
 
     match "talks/*" $ do
         route $ setExtension "html"
-        compile $ pandocCompilerWith defaultHakyllReaderOptions {readerSmart = False} defaultHakyllWriterOptions
+        compile $ pandocCompilerWith defaultHakyllReaderOptions defaultHakyllWriterOptions
             >>= saveSnapshot "content"
             >>= loadAndApplyTemplate "templates/talk.html"    defaultContext
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
