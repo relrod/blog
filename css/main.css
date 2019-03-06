@@ -71,8 +71,13 @@ hr {
 
 .blog-navbar ul .blog-nav-item {
     margin: 0 2px !important;
-    padding-bottom: 0 !important;
+    padding-bottom: 4px;
     margin-bottom: 0 !important;
+}
+
+.blog-navbar ul li:hover {
+    border-bottom-width: 6px;
+    padding-bottom: 0;
 }
 
 .blog-l-border { border-left: 1px solid #eee; }
