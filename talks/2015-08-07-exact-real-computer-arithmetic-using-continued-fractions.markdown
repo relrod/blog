@@ -1,6 +1,6 @@
 ---
 title: Exact Real Computer Arithmetic Using Continued Fractions
-author: Ricky Elrod
+author: Rick Elrod
 date: August 7, 2015
 pdf: /static/mathfest-2015.pdf
 ---

@@ -1,6 +1,6 @@
 ---
 title: The Problem With Unit Testing
-author: Ricky Elrod
+author: Rick Elrod
 date: August 7, 2014
 pdf: /static/the-problem-with-unit-testing.pdf
 youtube_id: ayVm3AuK3Pc

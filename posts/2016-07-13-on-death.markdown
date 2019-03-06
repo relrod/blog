@@ -1,6 +1,6 @@
 ---
 title: On Death
-author: Ricky Elrod
+author: Rick Elrod
 date: Wed, 13 Jul 2016 18:16:09 -0400
 tags: death, ysu, math
 ---

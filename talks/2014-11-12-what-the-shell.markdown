@@ -1,6 +1,6 @@
 ---
 title: What the shell?
-author: Ricky Elrod
+author: Rick Elrod
 date: November 12, 2014
 pdf: /static/what-the-shell.pdf
 ---

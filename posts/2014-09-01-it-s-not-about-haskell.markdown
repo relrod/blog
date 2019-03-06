@@ -1,6 +1,6 @@
 ---
 title: It's not about Haskell
-author: Ricky Elrod
+author: Rick Elrod
 date: September 01, 2014
 tags: haskell, functional programming, compsci
 ---

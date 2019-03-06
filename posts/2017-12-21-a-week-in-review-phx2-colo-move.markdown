@@ -1,6 +1,6 @@
 ---
 title: "A week in review: PHX2 Colo Move"
-author: Ricky Elrod
+author: Rick Elrod
 date: Thu, 21 Dec 2017 00:11:42 -0500
 tags: fedora, sysadmin
 ---

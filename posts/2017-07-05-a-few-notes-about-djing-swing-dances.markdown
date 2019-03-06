@@ -1,6 +1,6 @@
 ---
 title: A Few Notes About DJing Swing Dances
-author: Ricky Elrod
+author: Rick Elrod
 date: Wed, 05 Jul 2017 05:24:44 -0400
 tags: swing, swing dancing, music, djing
 draft: true

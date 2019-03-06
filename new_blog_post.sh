@@ -29,7 +29,7 @@ fi
 
 echo "---"                  > "$file"
 echo "title: $title"       >> "$file"
-echo "author: Ricky Elrod" >> "$file"
+echo "author: Rick Elrod" >> "$file"
 echo "date: $longdate"     >> "$file"
 echo "tags: "              >> "$file"
 echo "---"                 >> "$file"

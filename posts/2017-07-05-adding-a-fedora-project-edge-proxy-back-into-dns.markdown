@@ -1,6 +1,6 @@
 ---
 title: Adding a Fedora Project edge proxy back into DNS rotation
-author: Ricky Elrod
+author: Rick Elrod
 date: Wed, 05 Jul 2017 00:07:32 -0400
 tags: fedora, infrastructure, open source
 ---

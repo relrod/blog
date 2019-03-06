@@ -1,6 +1,6 @@
 ---
 title: My review of Lambda Jam 2014
-author: Ricky Elrod
+author: Rick Elrod
 date: July 25, 2014
 tags: fedora,haskell,travel
 ---

@@ -1,6 +1,6 @@
 ---
 title: The ultimate emacs-based vocabulary-learning environment
-author: Ricky Elrod
+author: Rick Elrod
 date: Fri, 04 Nov 2016 23:44:36 -0400
 tags: emacs, fedora, latin, linguistics
 ---

@@ -1,12 +1,12 @@
 ---
 title: "Learning Upright Bass: A Long-Term Journey"
-author: Ricky Elrod
+author: Rick Elrod
 date: Mon, 03 Jul 2017 23:02:35 -0400
 tags: bass, double bass, upright bass, jazz, jazz theory, music theory, swing
 ---
 
 <img src="https://images.srv1.elrod.me/ricky-bass-small.jpg"
-     alt="Ricky Elrod standing with an upright bass" 
+     alt="Rick Elrod standing with an upright bass" 
 	 style="display: inline; margin-right: 10px;" align="left" />
 
 Those who know me well know that I have a *vast* number of interests and

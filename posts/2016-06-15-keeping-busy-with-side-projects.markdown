@@ -1,6 +1,6 @@
 ---
 title: Keeping Busy with Side Projects
-author: Ricky Elrod
+author: Rick Elrod
 date: Wed, 15 Jun 2016 02:19:12 -0400
 tags: fedora, github, code, haskell, coq
 ---

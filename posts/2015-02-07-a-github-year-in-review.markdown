@@ -1,6 +1,6 @@
 ---
 title: A GitHub year in review
-author: Ricky Elrod
+author: Rick Elrod
 date: Sat, 07 Feb 2015 10:37:46 -0500
 tags: foss, fedora
 ---

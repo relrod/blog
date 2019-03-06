@@ -1,6 +1,6 @@
 ---
 title: My opinion of US University General Education Requirements
-author: Ricky Elrod
+author: Rick Elrod
 date: December 31, 2014
 tags: education
 ---

@@ -1,6 +1,6 @@
 ---
 title: Life full-time at Red Hat
-author: Ricky Elrod
+author: Rick Elrod
 date: Mon, 03 Jul 2017 21:51:41 -0400
 tags: fedora, red hat, linux
 ---

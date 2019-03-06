@@ -1,6 +1,6 @@
 ---
 title: Fixing a broken Firefox after version 35
-author: Ricky Elrod
+author: Rick Elrod
 date: Sat, 31 Jan 2015 15:49:08 -0500
 tags: firefox, fedora, software
 ---

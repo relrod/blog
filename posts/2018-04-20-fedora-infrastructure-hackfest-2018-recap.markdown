@@ -1,6 +1,6 @@
 ---
 title: Fedora Infrastructure Hackfest 2018 Recap
-author: Ricky Elrod
+author: Rick Elrod
 date: Fri, 20 Apr 2018 10:35:40 -0400
 tags: fedora, travel
 ---

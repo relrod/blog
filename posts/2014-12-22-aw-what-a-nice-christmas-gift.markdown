@@ -1,6 +1,6 @@
 ---
 title: Aw, what a nice Christmas gift!
-author: Ricky Elrod
+author: Rick Elrod
 date: December 22, 2014
 tags: da.gd, statistics, attack
 ---

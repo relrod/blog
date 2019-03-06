@@ -1,6 +1,6 @@
 ---
 title: "An open letter to YSU IT: Please stop requiring password changes!"
-author: Ricky Elrod
+author: Rick Elrod
 date: Wed, 26 Jul 2017 14:45:24 -0400
 tags: ysu, it, security
 draft: true
