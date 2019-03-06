@@ -41,11 +41,14 @@ hr {
     border-color: #ccc;
 }
 
+.blog-navbar-brand {
+    font-weight: bold;
+}
+
 .blog-navbar-full {
     background-color: #ffffff;
     border-bottom: 1px solid #ccc;
     line-height: 40px !important;
-    height: 40px !important;
 }
 
 .blog-navbar { margin-bottom: 20px; }
