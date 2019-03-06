@@ -76,6 +76,7 @@ hr {
 }
 
 .blog-navbar ul li:hover {
+    transition: border-bottom .5s;
     border-bottom-width: 6px;
     padding-bottom: 0;
 }
