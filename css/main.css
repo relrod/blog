@@ -97,6 +97,10 @@ hr {
  *
  * -CodeBlock
  */
+pre {
+    padding-left: 3em;
+    color: #009999; /* Default color */
+}
 code {
     font-family: Consolas, "Liberation Mono", Courier, monospace;
     color: #009999; /* Default color */
@@ -110,3 +114,18 @@ code {
 .co { color: #999988; font-style: italic; }
 .fu { color: #990000; font-weight: bold; }
 .er { color: #a61717; background-color: #e3d2d2; }
+
+p.quote {
+    color: #888;
+    font-style: italic;
+    font-size: 2.2em;
+}
+
+p.quote .quotemark {
+    font-size: 2em;
+}
+
+p.quote .attribution {
+    font-style: normal;
+    font-size: 0.6em;
+}
