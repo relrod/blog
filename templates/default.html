@@ -4,7 +4,8 @@
     <title>Rick Elrod - $title$</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Cardo:400,400italic,700">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu|
+Cardo:400,400italic,700">
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -23,35 +24,28 @@
     </script>
   </head>
   <body>
-    <nav class="navbar navbar-expand-md navbar-light blog-navbar-full blog-navbar cardo">
-      <div class="container">
-        <button class="navbar-toggler navbar-toggler-right"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand blog-navbar-brand cardo" href="/">Rick Elrod</a>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto ys-nav">
-            <li class="nav-item blog-nav-item blog"><a class="nav-link" href="/archive.html">Blog</a></li>
-            <li class="nav-item blog-nav-item djsets"><a class="nav-link" href="/dj-sets">DJ Sets</a></li>
-            <li class="nav-item blog-nav-item github"><a class="nav-link blog-nav-link" href="https://github.com/relrod">GitHub</a></li>
-            <li class="nav-item blog-nav-item twitter"><a class="nav-link blog-nav-link" href="https://twitter.com/relrod6">Twitter</a></li>
-            <li class="nav-item blog-nav-item email"><a class="nav-link blog-nav-link" href="mailto:rick.website@elrod.me">E-Mail</a></li>
-            <li class="nav-item blog-nav-item linkedin"><a class="nav-link blog-nav-link" href="https://www.linkedin.com/in/elrodrick">LinkedIn</a></li>
-          </ul>
+    $if(index)$
+    $body$
+    $else$
+    <div class="bg-blacklinen bg-ysured bg-ysugrad">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-7">
+            $partial("templates/nav.html")$
+          </div>
         </div>
       </div>
-    </nav>
-
-    <div class="container">
-      $body$
     </div>
+
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-md-12">
+          $body$
+        </div>
+      </div>
+    </div>
+    $endif$
 
     <hr />
 

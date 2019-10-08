@@ -51,7 +51,7 @@ one of a few things:
 
 - Immediately solve the issue by sending the user a patch, and asking him or her
   to test it
-- File a bug and say "It'll be fixed after <another bug> is fixed"
+- File a bug and say "It'll be fixed after [another bug] is fixed"
 - Say "It's already been fixed, upgrade your install"
 - Say "Well, that is intended behavior, but you can do what you want by doing X"
 - Say "Oops, we should document that better, let me push a patch."
@@ -62,7 +62,7 @@ project and wanted to improve it. He never carried a "I know better than you"
 attitude, and always assumed that there was a problem on the project's end
 before anything else. He was so good at this, that I almost got scared to ask
 questions, because I didn't want him to invest a ton of time on something silly
-that I was just overlooking. In fact, this lead me to get more familiar with the
+that I was just overlooking. In fact, this led me to get more familiar with the
 codebase, because I wanted to triple-check that it was, in fact, a bug in the
 code, before I accidentally wasted his time.
 

@@ -4,10 +4,5 @@ cwd="$( cd "${BASH_SOURCE[0]%/*}" && pwd )"
 
 rm -rf "$cwd/_site/" "$cwd/_cache/"
 
-if [ ! -f "$cwd/dist/build/blog/blog" ]; then
-  echo "blog binary not found."
-  exit 1
-fi
-
-"$cwd/dist/build/blog/blog" clean
-"$cwd/dist/build/blog/blog" watch
+cabal run blog clean
+cabal run -- blog watch --host 0.0.0.0

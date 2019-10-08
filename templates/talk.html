@@ -1,21 +1,18 @@
-<div class="pure-u-1">
-  <h1>Talk: $title$</h1>
-  <div class="date">$date$</span>
-  $if(pdf)$
-  <div class="download">Download: <a href="$pdf$">PDF</a></div>
-  $endif$
+<h1>Talk: $title$</h1>
+<div class="date">$date$</span>
+$if(pdf)$
+<div class="download">Download: <a href="$pdf$">PDF</a></div>
+$endif$
 
-  <!-- Too painful to read at full width. -->
-  <hr />
-  $body$
-  <hr />
+<hr />
+$body$
+<hr />
 
-  $if(youtube_id)$
-  <iframe width="640"
-          height="360"
-          src="//www.youtube.com/embed/$youtube_id$"
-          frameborder="0" allowfullscreen></iframe>
-  $endif$
+$if(youtube_id)$
+<iframe width="640"
+        height="360"
+        src="//www.youtube.com/embed/$youtube_id$"
+        frameborder="0" allowfullscreen></iframe>
+$endif$
 
-  <a href="https://twitter.com/share" class="twitter-share-button" data-via="relrod6">Tweet</a>
-</div>
+<a href="https://twitter.com/share" class="twitter-share-button" data-via="relrod6">Tweet</a>

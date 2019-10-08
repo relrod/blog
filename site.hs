@@ -118,6 +118,23 @@ main = hakyll $ do
                 >>= loadAndApplyTemplate "templates/default.html" archiveCtx
                 >>= relativizeUrls
 
+    match "index.html" $ do
+        route $ setExtension "html"
+        compile $ do
+            talks <- recentFirst =<< loadAll "talks/*"
+            posts <- loadAll "posts/*" >>= \posts -> do
+              recent <- recentFirst posts
+              filterM (\x -> not <$> itemIsDraft x) recent
+            let indexCtx =
+                    listField "posts" (postCtx tags) (return (take 10 posts)) <>
+                    listField "talks" defaultContext (return (take 10 talks)) <>
+                    constField "title" "Home" <>
+                    defaultContext
+
+            getResourceBody
+                >>= applyAsTemplate indexCtx
+                >>= loadAndApplyTemplate "templates/default.html" indexCtx
+                >>= relativizeUrls
 
     match "*.html" $ do
         route $ setExtension "html"
@@ -181,10 +198,10 @@ postCtx tags = mconcat
 
 feedConfiguration :: String -> FeedConfiguration
 feedConfiguration title = FeedConfiguration
-    { feedTitle       = "Ricky Elrod's Blog - " ++ title
-    , feedDescription = "FOSS, Fedora, (Functional) Programming"
-    , feedAuthorName  = "Ricky Elrod"
-    , feedAuthorEmail = "ricky@elrod.me"
+    { feedTitle       = "Rick Elrod's Blog - " ++ title
+    , feedDescription = "My life, FOSS, Fedora, (Functional) Programming, Music, and other random things."
+    , feedAuthorName  = "Rick Elrod"
+    , feedAuthorEmail = "rick.website@elrod.me"
     , feedRoot        = "https://elrod.me"
     }
 

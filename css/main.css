@@ -1,13 +1,49 @@
 .cardo { font-family: Cardo, serif !important; }
+.ubuntu { font-family: Ubuntu, sans-serif !important; }
+
+/*.bg-blacklinen {
+    background-image: url("/static/black-linen.png");
+}*/
+
+
+.bg-ysured .navbar:first-child .nav-item:first-child a {
+    padding-left: 0;
+}
+
+.bg-ysured a { color: #fff; }
+.bg-ysured a:hover { color: #ddd; }
+
+.bg-ysugrad {
+    background-position: top center;
+    background-image: url('/static/ysugrad.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #fff;
+}
+
+.bg-ysugrad h1 {
+    margin-top: 1em;
+    font-size: 4em;
+}
+
+
+.bg-dance {
+    background-position: top center;
+    background-color: #e5d7aa;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
 
 body { background-color: #f7f7f7; }
 
 img.home { width: 100%; }
 img { max-width: 100%; }
 
-h1, h2, h3, h4, h5 { font-family: Cardo, serif !important; }
+h1, h2, h3, h4, h5 { font-family: Ubuntu, serif !important; }
 
-p { font-family: sans-serif !important; }
+*, p { font-family: Ubuntu, sans-serif; }
 
 blockquote {
     margin-left: 15px;
@@ -24,9 +60,8 @@ h1 {
     margin-bottom: 10px;
 }
 
-h1.huge {
-    font-size: 3.6em;
-    padding: 20px 0;
+.huge {
+    font-size: 3em;
 }
 
 .right { float: right; }
