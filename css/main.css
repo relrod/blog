@@ -30,7 +30,7 @@
 
 .bg-dance {
     background-position: top center;
-    background-color: #e5d7aa;
+    background-image: url('/static/stars.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
