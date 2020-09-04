@@ -1,5 +1,6 @@
 .cardo { font-family: Cardo, serif !important; }
 .ubuntu { font-family: Ubuntu, sans-serif !important; }
+.serif, .serif * { font-family: 'Crimson Text', serif !important; }
 
 /*.bg-blacklinen {
     background-image: url("/static/black-linen.png");
@@ -74,6 +75,19 @@ hr {
     margin: 1em 0;
     padding: 0;
     border-color: #ccc;
+}
+
+.blog-post tr, .blog-post td, .blog-post th {
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.blog-post h1, .blog-post h2, .blog-post h3 {
+    margin: 10px 0;
+}
+
+.blog-post p {
+    font-size: 1.2em;
 }
 
 .blog-navbar-brand {
