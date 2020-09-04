@@ -176,14 +176,14 @@ main = hakyll $ do
             route   $ setExtension "xml"
             compile $ loadAllSnapshots pattern "content"
                 >>= fmap (take 10) . recentFirst
-                >>= renderAtom (feedConfiguration title) feedCtx
+                >>= renderRss (feedConfiguration title) feedCtx
 
     create ["rss.xml"] $ do
         route idRoute
         compile $
             loadAllSnapshots "articles/*.md" "content"
                 >>= fmap (take 10) . recentFirst
-                >>= renderAtom (feedConfiguration "All posts") feedCtx
+                >>= renderRss (feedConfiguration "All posts") feedCtx
 
     match "templates/*" $ compile templateCompiler
 
