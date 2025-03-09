@@ -13,6 +13,7 @@ title = "rick elrod"
 generate_feeds = true
 taxonomies = [{name = "tags", feed = true}]
 
+
 [markdown]
 highlight_code = true
 highlight_theme = "css"
@@ -27,6 +28,7 @@ socials = [
     { name = "bluesky", url = "https://bsky.app/profile/relrod.bsky.social", icon = "bluesky" },
     { name = "mastodon", url = "https://fosstodon.org/@relrod", icon = "mastodon" },
 ]
+fediverse_creator = { handle = "relrod", domain = "fosstodon.org" }
 
 [search]
 index_format = "elasticlunr_json"
