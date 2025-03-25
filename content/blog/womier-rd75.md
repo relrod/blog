@@ -7,6 +7,8 @@ date = 2025-03-25
 tags = ["keyboards"]
 +++
 
+{{ full_width_image(src="img/RD75.jpeg", alt="Picture of RD75") }}
+
 I have to be honest here. I got a new keyboard, and I like typing on it, so I
 decided to type a blog post, because it gave me a reason to type and hear some
 amazing _thock_[^0]. I'm not a professional keyboard reviewer, and I'm still
