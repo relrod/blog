@@ -1,7 +1,7 @@
 +++
 title = "Language Artifact: Gerunds and Infinitives"
 description = "I want [infinitive], but I enjoy [gerund]..."
-date = 2025-04-02
+date = 2025-04-22
 
 [taxonomies]
 tags = ["language-artifact"]
