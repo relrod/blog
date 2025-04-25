@@ -1,6 +1,6 @@
 +++
-title = "Ansible: Failing When Changes Are Detected"
-description = "An approach to detecting changes and configuration drift with Semaphore UI and Ansible."
+title = "Ansible: Fail When Changes Are Detected"
+description = "Detecting changes and configuration drift with Semaphore UI and Ansible."
 date = 2025-04-25
 
 [taxonomies]
