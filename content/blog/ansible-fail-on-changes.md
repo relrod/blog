@@ -1,5 +1,5 @@
 +++
-title = "Ansible: Failing when changes detected"
+title = "Ansible: Failing When Changes Are Detected"
 description = "An approach to detecting changes and configuration drift."
 date = 2025-04-25
 
