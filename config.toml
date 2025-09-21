@@ -21,6 +21,7 @@ highlight_theme = "css"
 [extra]
 skin = "blue"
 mermaid = true
+stylesheets = ["custom.css"]
 serve_local_mermaid = false
 socials = [
     { name = "github", url = "https://github.com/relrod", icon = "github" },
