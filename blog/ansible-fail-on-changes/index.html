@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+    <meta charset="UTF-8"><meta http-equiv="Content-Security-Policy"
+content="default-src 'self';font-src &#x27;self&#x27; data: 'self';img-src &#x27;self&#x27; https:&#x2F;&#x2F;* data:;media-src &#x27;self&#x27;;style-src &#x27;self&#x27; 'unsafe-inline';frame-src player.vimeo.com https:&#x2F;&#x2F;www.youtube-nocookie.com;connect-src 'self';script-src 'self'  cdn.jsdelivr.net 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base" content="https://elrod.me">
+
+    
+    <title>rick elrod • Ansible: Fail When Changes Are Detected</title>
+
+    
+    
+    
+
+    
+    
+        
+            
+            
+                
+                    <link rel="alternate" type="application/atom+xml" title="rick elrod - Atom Feed" href="https://elrod.me/atom.xml">
+                
+            
+        
+    
+
+    
+    
+    
+        
+            <link rel="stylesheet" href="https://elrod.me/custom_subset.css?h=0b9535a28bc3d5bf2321">
+        
+    
+
+    
+        <link rel="stylesheet" href="https://elrod.me/main.css?h=fa464346b37e382872db" />
+        <link rel="stylesheet" href="https://elrod.me/custom.css?h=800fc81afaef00fee8fc" />
+        <link rel="stylesheet" href="https://elrod.me/skins/blue.css?h=a4dc1e94d3f5759784d2" />
+
+    <meta name="color-scheme" content="light dark" />
+        <meta name="description" content="Detecting changes and configuration drift with Semaphore UI and Ansible." />
+        <meta property="og:description" content="Detecting changes and configuration drift with Semaphore UI and Ansible." />
+
+    
+
+    <meta property="og:title" content="Ansible: Fail When Changes Are Detected" />
+    <meta property="og:type" content="article" />
+
+    
+<meta property="og:locale" content="en_GB" />
+
+    <meta property="og:url" content="https:&#x2F;&#x2F;elrod.me&#x2F;blog&#x2F;ansible-fail-on-changes&#x2F;" /><meta property="og:site_name" content="rick elrod">
+        <noscript><link rel="stylesheet" href="https://elrod.me/no_js.css"/></noscript>
+        <script type="text/javascript" src="https://elrod.me/js/initializeTheme.min.js"></script>
+        <script defer src="https://elrod.me/js/themeSwitcher.min.js"></script><meta name="fediverse:creator" content="@relrod@fosstodon.org" />
+        <script defer src="https://elrod.me/js/searchElasticlunr.min.js?h=3626c0ef99daa745b31e"></script>
+
+        </head>
+
+
+<body>
+    <header>
+    <nav class="navbar">
+        <div class="nav-title">
+            <a class="home-title" href="https://elrod.me">rick elrod</a>
+        </div>
+            <div class="nav-navs">
+                <ul>
+                        
+                            <li>
+                                <a class="nav-links no-hover-padding" href="https://elrod.me/blog/">blog
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a class="nav-links no-hover-padding" href="https://elrod.me/archive/">archive
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a class="nav-links no-hover-padding" href="https://elrod.me/tags/">tags
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a class="nav-links no-hover-padding" href="https://elrod.me/projects/">projects
+                                </a>
+                            </li>
+                        <li class="menu-icons-container">
+                        <ul class="menu-icons-group">
+                            <li class="js menu-icon">
+                                <div role="button" tabindex="0" id="search-button" class="search-icon interactive-icon" title="Click or press $SHORTCUT to open search" aria-label="Click or press $SHORTCUT to open search">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                                        <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/>
+                                    </svg>
+                                </div>
+                            </li>
+
+                            
+                            
+
+                            <li class="theme-switcher-wrapper js"><div
+        title="Toggle dark&#x2F;light mode"
+        class="theme-switcher"
+        tabindex="0"
+        role="button"
+        aria-label="Toggle dark mode"
+        aria-pressed="false">
+    </div><div
+        title="Reset mode to default"
+        class="theme-resetter arrow"
+        tabindex="0"
+        role="button"
+        aria-hidden="true"
+        aria-label="Reset mode to default">
+    </div>
+
+</li>
+</ul>
+                    </li>
+                </ul>
+            </div>
+        
+    </nav>
+</header>
+
+    <div class="content">
+
+        
+        
+
+
+
+
+<main>
+    <article>
+        <h1 class="article-title">
+            Ansible: Fail When Changes Are Detected
+        </h1>
+
+        
+        <h2 style="font-style: italic; font-size: 1rem; color: var(--meta-color);">
+            Detecting changes and configuration drift with Semaphore UI and Ansible.
+        </h2>
+        <hr style="margin-top: 1rem;" />
+        
+
+        <ul class="meta">
+                <li>25th Apr 2025</li><li title="1450 words"><span class='separator' aria-hidden='true'>•</span>8 min read</li><li class="tag"><span class='separator' aria-hidden='true'>•</span>Tags:&nbsp;</li><li class="tag"><a href="https://elrod.me/tags/ansible/">ansible</a>,&nbsp;</li><li class="tag"><a href="https://elrod.me/tags/open-source/">open-source</a></li>
+        </ul>
+
+        <section class="body"><p>First off, a note: Although at the time of writing this, I work on Ansible at
+Red Hat, this post is written in a completely unofficial capacity. It should not
+be taken as official advice on how to use Ansible - only documenting a problem
+<em>I</em> had in <em>my personal</em> use of Ansible, and how I solved it.</p>
+<p>With that out of the way...</p>
+<h1 id="motivation">Motivation</h1>
+<p>Ansible has long had a <code>--check</code> option to enable
+<a href="https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_checkmode.html">check mode</a>
+which allows you to run a playbook without making changes (so long as the
+modules you are using are written properly and respect check mode).</p>
+<p>There's also a related <code>--diff</code> option, which, when combined with <code>--check</code> has
+the effect of telling you "what would have changed" if you ran
+<code>ansible-playbook</code> without <code>--check</code>.</p>
+<p>I have recently been playing with the awesome, open source
+<a href="https://semaphoreui.com">Semaphore UI</a> project, which provides a web UI and
+REST API over the main Ansible Core command-line tool. It is similar in spirit
+to the Ansible <a href="https://github.com/ansible/awx">AWX</a> project, except simpler,
+not on indefinite <a href="https://github.com/ansible/awx/releases">release hiatus</a> and
+responsive to its community
+(<a href="https://forum.ansible.com/t/running-awx-going-forward/8800"><em>cough</em></a>). Oh, and
+you can deploy it without Kubernetes - they ship RPMs, DEBs, Docker containers,
+etc. Nifty.</p>
+<h1 id="my-goal">My Goal</h1>
+<p>What I want is this:</p>
+<ul>
+<li>I want to know about <strong>configuration drift</strong> on my servers</li>
+<li>I want to be alerted to it, if it happens, in the appropriate places
+(different places per project).</li>
+</ul>
+<p>That's my goal.</p>
+<h1 id="what-i-m-not-given">What I'm (not) given</h1>
+<p>Let's talk about what Ansible and the third-party Semaphore UI tools both
+provide to help achieve the goal - and also what they lack.</p>
+<h4 id="given-scheduled-template-runs">Given: Scheduled Template Runs</h4>
+<p>Semaphore UI will let you
+<a href="https://docs.semaphoreui.com/user-guide/schedules/">schedule</a> template
+runs. This is useful, because we can use this to run our playbook every day
+(for example), and see if anything changed.</p>
+<h4 id="given-a-roundabout-way-to-run-schedules-specifically-in-check-mode">Given: A (roundabout) way to run schedules specifically in check mode</h4>
+<p>Schedules unfortunately <em>can NOT</em> be set to run a playbook in check mode through
+the UI. But we can work around that, because the template configuration UI lets
+you add flags to the <code>ansible-playbook</code> call, so we can easily just add
+<code>--check</code> (and <code>--diff</code>) ourselves:</p>
+<p><img src="/img/semaphore-cli-args.png" alt="CLI args option in Semaphore" /></p>
+<h4 id="not-given-notification-routing">NOT given: Notification routing</h4>
+<p>One lacking area in Semaphore UI is notifications. The notifications
+system it comes with is very lackluster. Notification settings are largely put
+in a single config file, and every project and template uses those same
+settings, so you can't readily say "I want alerts from <em>this</em> project to go to
+<em>this</em> Slack channel, and alerts from <em>this other</em> project to go to <em>this other</em>
+Slack channel," for example.</p>
+<p>I <a href="https://github.com/semaphoreui/semaphore/discussions/2940">opened a discussion</a>
+and within 12 hours the maintainer responded, saying he'd gladly take a patch
+that revamps the notification system -- and this is something I'd love to try to
+tackle at some point, mostly as an excuse to learn Golang. But, anyway.</p>
+<p>So, okay, not ideal. But we can kind of work around this... right?</p>
+<h4 id="given-a-rest-api-for-task-statuses">Given: A REST API for task statuses</h4>
+<p>Semaphore UI provides a <a href="https://semaphoreui.com/api-docs/">REST API</a>, with
+endpoints that can tell you about the status of tasks (playbook runs) within a
+project.</p>
+<p>So, theoretically, I could have some external system poll the API, check the
+latest status of the right (scheduled) template which has <code>--check</code> in its
+command-line arguments, and alert if the last run failed. This could be GitHub
+Actions, Nagios, Checkmk, Jenkins, any kind of tool where you can schedule
+periodic checks and alert on them.</p>
+<p>But that only works if the playbook run actually fails...</p>
+<h4 id="not-given-a-built-in-way-to-fail-a-playbook-run-if-changes-are-detected">NOT given: A built-in way to fail a playbook run if changes are detected</h4>
+<p>While Ansible has <code>--check</code> built in, it doesn't have a way to say "fail the
+playbook run if any changes would be made," out of the box.</p>
+<p>However, it does have a plugin system, and we can make use of the concept of
+<a href="https://docs.ansible.com/ansible/latest/plugins/callback.html">callback plugins</a>
+to help us accomplish this.</p>
+<p>Callback plugins allow us to respond to "events" during the lifecycle of a
+playbook run in Ansible. Specifically, there is an event that gets triggered at
+the end of a playbook run, that in the normal case, is what triggers the
+<em>stats</em> to display. And to display the status correctly, we must know if
+anything changed - so this seems like a great place to hook into.</p>
+<h1 id="the-plan">The Plan</h1>
+<p>So, how can we accomplish the goal?</p>
+<p>We can design a <strong>callback plugin</strong> that will exit with a non-zero exit code
+(indiciating failure) if any changes are detected.</p>
+<p>Then, we just:</p>
+<ul>
+<li>Create a Semaphore template that runs our playbook and adds <code>--check</code> (and
+optionally <code>--diff</code>) to the command-line args, so they are always there.</li>
+<li>Ensure our playbook run makes use of our custom <strong>callback plugin</strong>.</li>
+<li>Create a schedule to run this playbook template daily or as often as you wish.</li>
+<li>Set up some external tooling to ping the API and check the status of the last
+playbook run with your template ID in your project and alert if the playbook
+run failed.</li>
+</ul>
+<h2 id="the-callback-plugin">The Callback Plugin</h2>
+<p>This is the plugin that I came up with. It's simple enough, just a few lines:</p>
+<pre data-lang="python" class="language-python z-code"><code class="language-python" data-lang="python"><span class="z-source z-python"><span class="z-meta z-statement z-import z-python"><span class="z-keyword z-control z-import z-from z-python">from</span></span><span class="z-meta z-statement z-import z-python"><span class="z-meta z-import-source z-python"> <span class="z-meta z-import-path z-python"><span class="z-meta z-import-name z-python">ansible</span><span class="z-punctuation z-accessor z-dot z-python">.</span><span class="z-meta z-import-name z-python">plugins</span><span class="z-punctuation z-accessor z-dot z-python">.</span><span class="z-meta z-import-name z-python">callback</span></span> <span class="z-meta z-statement z-import z-python"><span class="z-keyword z-control z-import z-python">import</span></span></span></span><span class="z-meta z-statement z-import z-python"></span><span class="z-meta z-statement z-import z-python"> <span class="z-meta z-generic-name z-python">CallbackBase</span></span>
+</span><span class="z-source z-python"><span class="z-meta z-statement z-import z-python"><span class="z-keyword z-control z-import z-from z-python">from</span></span><span class="z-meta z-statement z-import z-python"><span class="z-meta z-import-source z-python"> <span class="z-meta z-import-path z-python"><span class="z-meta z-import-name z-python">ansible</span></span> <span class="z-meta z-statement z-import z-python"><span class="z-keyword z-control z-import z-python">import</span></span></span></span><span class="z-meta z-statement z-import z-python"></span><span class="z-meta z-statement z-import z-python"> <span class="z-meta z-generic-name z-python">constants</span> <span class="z-keyword z-control z-import z-as z-python">as</span> <span class="z-meta z-generic-name z-python">C</span></span>
+</span><span class="z-source z-python"><span class="z-meta z-statement z-import z-python"><span class="z-keyword z-control z-import z-from z-python">from</span></span><span class="z-meta z-statement z-import z-python"><span class="z-meta z-import-source z-python"> <span class="z-meta z-import-path z-python"><span class="z-meta z-import-name z-python">ansible</span></span> <span class="z-meta z-statement z-import z-python"><span class="z-keyword z-control z-import z-python">import</span></span></span></span><span class="z-meta z-statement z-import z-python"></span><span class="z-meta z-statement z-import z-python"> <span class="z-meta z-generic-name z-python">context</span></span>
+</span><span class="z-source z-python">
+</span><span class="z-source z-python"><span class="z-meta z-statement z-import z-python"><span class="z-keyword z-control z-import z-python">import</span> <span class="z-meta z-qualified-name z-python"><span class="z-meta z-generic-name z-python">sys</span></span></span>
+</span><span class="z-source z-python">
+</span><span class="z-source z-python"><span class="z-meta z-class z-python"><span class="z-storage z-type z-class z-python"><span class="z-keyword z-declaration z-class z-python">class</span></span> <span class="z-entity z-name z-class z-python"><span class="z-meta z-generic-name z-python">CallbackModule</span></span><span class="z-meta z-class z-inheritance z-python"><span class="z-punctuation z-section z-inheritance z-begin z-python">(</span></span></span><span class="z-meta z-class z-inheritance z-python"><span class="z-entity z-other z-inherited-class z-python">CallbackBase</span><span class="z-punctuation z-section z-inheritance z-end z-python">)</span></span><span class="z-meta z-class z-python"><span class="z-punctuation z-section z-class z-begin z-python">:</span></span>
+</span><span class="z-source z-python">    <span class="z-meta z-qualified-name z-python"><span class="z-variable z-other z-constant z-python">CALLBACK_VERSION</span></span> <span class="z-keyword z-operator z-assignment z-python">=</span> <span class="z-constant z-numeric z-float z-decimal z-python">2<span class="z-punctuation z-separator z-decimal z-python">.</span>0</span>
+</span><span class="z-source z-python">    <span class="z-meta z-qualified-name z-python"><span class="z-variable z-other z-constant z-python">CALLBACK_TYPE</span></span> <span class="z-keyword z-operator z-assignment z-python">=</span> <span class="z-meta z-string z-python"><span class="z-string z-quoted z-single z-python"><span class="z-punctuation z-definition z-string z-begin z-python">&#39;</span></span></span><span class="z-meta z-string z-python"><span class="z-string z-quoted z-single z-python">aggregate<span class="z-punctuation z-definition z-string z-end z-python">&#39;</span></span></span>
+</span><span class="z-source z-python">    <span class="z-meta z-qualified-name z-python"><span class="z-variable z-other z-constant z-python">CALLBACK_NAME</span></span> <span class="z-keyword z-operator z-assignment z-python">=</span> <span class="z-meta z-string z-python"><span class="z-string z-quoted z-single z-python"><span class="z-punctuation z-definition z-string z-begin z-python">&#39;</span></span></span><span class="z-meta z-string z-python"><span class="z-string z-quoted z-single z-python">fail_on_changes<span class="z-punctuation z-definition z-string z-end z-python">&#39;</span></span></span>
+</span><span class="z-source z-python">    <span class="z-meta z-qualified-name z-python"><span class="z-variable z-other z-constant z-python">CALLBACK_NEEDS_ENABLED</span></span> <span class="z-keyword z-operator z-assignment z-python">=</span> <span class="z-constant z-language z-python">False</span>
+</span><span class="z-source z-python">
+</span><span class="z-source z-python"><span class="z-meta z-function z-python">    <span class="z-storage z-type z-function z-python"><span class="z-keyword z-declaration z-function z-python">def</span></span> <span class="z-entity z-name z-function z-python"><span class="z-meta z-generic-name z-python">v2_playbook_on_stats</span></span></span><span class="z-meta z-function z-parameters z-python"><span class="z-punctuation z-section z-parameters z-begin z-python">(</span></span><span class="z-meta z-function z-parameters z-python"><span class="z-variable z-parameter z-python">self</span><span class="z-punctuation z-separator z-parameters z-python">,</span> <span class="z-variable z-parameter z-python">stats</span><span class="z-punctuation z-section z-parameters z-end z-python">)</span></span><span class="z-meta z-function z-python"><span class="z-punctuation z-section z-function z-begin z-python">:</span></span>
+</span><span class="z-source z-python">        <span class="z-meta z-statement z-conditional z-if z-python"><span class="z-keyword z-control z-conditional z-if z-python">if</span> <span class="z-keyword z-operator z-logical z-python">not</span> <span class="z-meta z-qualified-name z-python"><span class="z-meta z-generic-name z-python">context</span><span class="z-punctuation z-accessor z-dot z-python">.</span><span class="z-variable z-other z-constant z-python">CLIARGS</span></span> <span class="z-keyword z-operator z-logical z-python">or</span> <span class="z-meta z-string z-python"><span class="z-string z-quoted z-single z-python"><span class="z-punctuation z-definition z-string z-begin z-python">&#39;</span></span></span><span class="z-meta z-string z-python"><span class="z-string z-quoted z-single z-python">extra_vars<span class="z-punctuation z-definition z-string z-end z-python">&#39;</span></span></span> <span class="z-keyword z-operator z-logical z-python">not</span> <span class="z-keyword z-operator z-logical z-python">in</span> <span class="z-meta z-qualified-name z-python"><span class="z-meta z-generic-name z-python">context</span><span class="z-punctuation z-accessor z-dot z-python">.</span><span class="z-variable z-other z-constant z-python">CLIARGS</span></span><span class="z-punctuation z-section z-block z-conditional z-if z-python">:</span></span>
+</span><span class="z-source z-python">            <span class="z-keyword z-control z-flow z-return z-python">return</span>
+</span><span class="z-source z-python">        <span class="z-meta z-qualified-name z-python"><span class="z-meta z-generic-name z-python">extra_vars</span></span> <span class="z-keyword z-operator z-assignment z-python">=</span> <span class="z-meta z-item-access z-python"><span class="z-meta z-qualified-name z-python"><span class="z-meta z-generic-name z-python">context</span><span class="z-punctuation z-accessor z-dot z-python">.</span><span class="z-variable z-other z-constant z-python">CLIARGS</span></span></span><span class="z-meta z-item-access z-python"><span class="z-punctuation z-section z-brackets z-begin z-python">[</span></span><span class="z-meta z-item-access z-arguments z-python"><span class="z-meta z-string z-python"><span class="z-string z-quoted z-single z-python"><span class="z-punctuation z-definition z-string z-begin z-python">&#39;</span></span></span><span class="z-meta z-string z-python"><span class="z-string z-quoted z-single z-python">extra_vars<span class="z-punctuation z-definition z-string z-end z-python">&#39;</span></span></span></span><span class="z-meta z-item-access z-python"><span class="z-punctuation z-section z-brackets z-end z-python">]</span></span>
+</span><span class="z-source z-python">        <span class="z-meta z-statement z-conditional z-if z-python"><span class="z-keyword z-control z-conditional z-if z-python">if</span> <span class="z-keyword z-operator z-logical z-python">not</span> <span class="z-meta z-function-call z-python"><span class="z-meta z-qualified-name z-python"><span class="z-variable z-function z-python"><span class="z-support z-function z-builtin z-python">any</span></span></span></span><span class="z-meta z-function-call z-arguments z-python"><span class="z-punctuation z-section z-arguments z-begin z-python">(</span><span class="z-meta z-function-call z-python"><span class="z-meta z-qualified-name z-python"><span class="z-meta z-generic-name z-python">var</span></span><span class="z-meta z-qualified-name z-python"><span class="z-punctuation z-accessor z-dot z-python">.</span></span><span class="z-meta z-qualified-name z-python"><span class="z-variable z-function z-python"><span class="z-meta z-generic-name z-python">strip</span></span></span></span><span class="z-meta z-function-call z-arguments z-python"><span class="z-punctuation z-section z-arguments z-begin z-python">(</span><span class="z-punctuation z-section z-arguments z-end z-python">)</span></span> <span class="z-keyword z-operator z-comparison z-python">==</span> <span class="z-meta z-string z-python"><span class="z-string z-quoted z-single z-python"><span class="z-punctuation z-definition z-string z-begin z-python">&#39;</span></span></span><span class="z-meta z-string z-python"><span class="z-string z-quoted z-single z-python">fail_on_changes<span class="z-punctuation z-definition z-string z-end z-python">&#39;</span></span></span> <span class="z-meta z-expression z-generator z-python"><span class="z-keyword z-control z-loop z-for z-generator z-python">for</span> <span class="z-meta z-generic-name z-python">var</span> <span class="z-keyword z-control z-loop z-for z-in z-python">in</span></span> <span class="z-meta z-qualified-name z-python"><span class="z-meta z-generic-name z-python">extra_vars</span></span><span class="z-punctuation z-section z-arguments z-end z-python">)</span></span><span class="z-punctuation z-section z-block z-conditional z-if z-python">:</span></span>
+</span><span class="z-source z-python">            <span class="z-keyword z-control z-flow z-return z-python">return</span>
+</span><span class="z-source z-python">        <span class="z-meta z-statement z-loop z-for z-python"><span class="z-keyword z-control z-loop z-for z-python">for</span> <span class="z-meta z-generic-name z-python">host</span><span class="z-punctuation z-separator z-target-list z-python">,</span> <span class="z-meta z-generic-name z-python">number</span> <span class="z-keyword z-control z-loop z-for z-in z-python">in</span></span><span class="z-meta z-statement z-loop z-for z-python"> <span class="z-meta z-function-call z-python"><span class="z-meta z-qualified-name z-python"><span class="z-meta z-generic-name z-python">stats</span><span class="z-punctuation z-accessor z-dot z-python">.</span><span class="z-meta z-generic-name z-python">changed</span></span><span class="z-meta z-qualified-name z-python"><span class="z-punctuation z-accessor z-dot z-python">.</span></span><span class="z-meta z-qualified-name z-python"><span class="z-variable z-function z-python"><span class="z-meta z-generic-name z-python">items</span></span></span></span><span class="z-meta z-function-call z-arguments z-python"><span class="z-punctuation z-section z-arguments z-begin z-python">(</span><span class="z-punctuation z-section z-arguments z-end z-python">)</span></span></span><span class="z-meta z-statement z-loop z-for z-python"><span class="z-punctuation z-section z-block z-loop z-for z-python">:</span></span>
+</span><span class="z-source z-python">            <span class="z-meta z-statement z-conditional z-if z-python"><span class="z-keyword z-control z-conditional z-if z-python">if</span> <span class="z-meta z-qualified-name z-python"><span class="z-meta z-generic-name z-python">number</span></span> <span class="z-keyword z-operator z-comparison z-python">&gt;</span> <span class="z-constant z-numeric z-integer z-decimal z-python">0</span><span class="z-punctuation z-section z-block z-conditional z-if z-python">:</span></span>
+</span><span class="z-source z-python">                <span class="z-meta z-function-call z-python"><span class="z-meta z-qualified-name z-python"><span class="z-variable z-language z-python">self</span><span class="z-punctuation z-accessor z-dot z-python">.</span><span class="z-meta z-generic-name z-python">_display</span></span><span class="z-meta z-qualified-name z-python"><span class="z-punctuation z-accessor z-dot z-python">.</span></span><span class="z-meta z-qualified-name z-python"><span class="z-variable z-function z-python"><span class="z-meta z-generic-name z-python">display</span></span></span></span><span class="z-meta z-function-call z-arguments z-python"><span class="z-punctuation z-section z-arguments z-begin z-python">(</span><span class="z-meta z-string z-python"><span class="z-string z-quoted z-double z-python"><span class="z-punctuation z-definition z-string z-begin z-python">&quot;</span></span></span><span class="z-meta z-string z-python"><span class="z-string z-quoted z-double z-python">Changes detected<span class="z-punctuation z-definition z-string z-end z-python">&quot;</span></span></span><span class="z-punctuation z-separator z-arguments z-python">,</span> <span class="z-variable z-parameter z-python">color</span><span class="z-keyword z-operator z-assignment z-python">=</span><span class="z-meta z-qualified-name z-python"><span class="z-meta z-generic-name z-python">C</span><span class="z-punctuation z-accessor z-dot z-python">.</span><span class="z-variable z-other z-constant z-python">COLOR_ERROR</span></span><span class="z-punctuation z-section z-arguments z-end z-python">)</span></span>
+</span><span class="z-source z-python">                <span class="z-meta z-function-call z-python"><span class="z-meta z-qualified-name z-python"><span class="z-meta z-generic-name z-python">sys</span></span><span class="z-meta z-qualified-name z-python"><span class="z-punctuation z-accessor z-dot z-python">.</span></span><span class="z-meta z-qualified-name z-python"><span class="z-variable z-function z-python"><span class="z-meta z-generic-name z-python">exit</span></span></span></span><span class="z-meta z-function-call z-arguments z-python"><span class="z-punctuation z-section z-arguments z-begin z-python">(</span><span class="z-constant z-numeric z-integer z-decimal z-python">3</span><span class="z-punctuation z-section z-arguments z-end z-python">)</span></span>
+</span><span class="z-source z-python">        <span class="z-meta z-function-call z-python"><span class="z-meta z-qualified-name z-python"><span class="z-variable z-language z-python">self</span><span class="z-punctuation z-accessor z-dot z-python">.</span><span class="z-meta z-generic-name z-python">_display</span></span><span class="z-meta z-qualified-name z-python"><span class="z-punctuation z-accessor z-dot z-python">.</span></span><span class="z-meta z-qualified-name z-python"><span class="z-variable z-function z-python"><span class="z-meta z-generic-name z-python">display</span></span></span></span><span class="z-meta z-function-call z-arguments z-python"><span class="z-punctuation z-section z-arguments z-begin z-python">(</span><span class="z-meta z-string z-python"><span class="z-string z-quoted z-double z-python"><span class="z-punctuation z-definition z-string z-begin z-python">&quot;</span></span></span><span class="z-meta z-string z-python"><span class="z-string z-quoted z-double z-python">No changes detected<span class="z-punctuation z-definition z-string z-end z-python">&quot;</span></span></span><span class="z-punctuation z-separator z-arguments z-python">,</span> <span class="z-variable z-parameter z-python">color</span><span class="z-keyword z-operator z-assignment z-python">=</span><span class="z-meta z-qualified-name z-python"><span class="z-meta z-generic-name z-python">C</span><span class="z-punctuation z-accessor z-dot z-python">.</span><span class="z-variable z-other z-constant z-python">COLOR_OK</span></span><span class="z-punctuation z-section z-arguments z-end z-python">)</span></span>
+</span></code></pre>
+<p>Basically, what we do here is say, "hey, send me events!" and specifically, we
+override the <code>v2_playbook_on_stats()</code> method which gets called at the <strong>end of
+the playbook run</strong>.</p>
+<p>We look for a specific <code>extra_vars</code> to be passed in (more on that in a second),
+and if it is, we simply look through all the <code>changed</code> status, and if any of
+them are above 0, we <code>sys.exit(3)</code>.</p>
+<div class="admonition warning">
+    <div class="admonition-icon admonition-icon-warning"></div>
+    <div class="admonition-content">
+        <strong class="admonition-title">A note about sys.exit()</strong>
+        <p>This <code>sys.exit()</code> call will do just that. It will exit. This means, there could
+be other callbacks that <em>don't get called</em> before we exit, depending on the
+order in which the callback plugins run. In my case, this is fine, I am not
+using any other callback plugins. But if you are, keep it in mind.</p>
+
+    </div>
+</div>
+<p>What I've done is created a <code>plugins/callback</code> directory in my Ansible project
+directory, and I've put this plugin there
+(<code>plugins/callback/fail_on_changes.py</code>). Then I've added this line to my
+<code>ansible.cfg</code> also in the root of the Ansible project directory, in the
+<code>defaults</code> section (create it - and the file - if they don't exist) to pick up
+the new plugin:</p>
+<pre data-lang="conf" class="language-conf z-code"><code class="language-conf" data-lang="conf"><span class="z-source z-genconfig"><span class="z-storage z-type z-genconfig">[defaults]
+</span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">callback_plugins</span> <span class="z-keyword z-operator z-genconfig">=</span></span> <span class="z-support z-type z-genconfig">plugins/callback</span>
+</span></code></pre>
+<p>You can test it by running your playbook like normal, but add an extra
+<code>-e fail_on_changes</code> to your <code>ansible-playbook</code> command. At the end, you should
+either see a red "Changes detected" (and the exit code should be 3), or you
+should see a green "No changes detected" (and the exit code should be 0).</p>
+<p>Masking the behavior behind the <code>-e fail_on_changes</code> allows us to <strong>opt in</strong> to
+the behavior and otherwise pretend it doesn't exist in the normal case.</p>
+<h2 id="the-semaphore-template">The Semaphore Template</h2>
+<p>Using the deployment playbook for the da.gd server as an example, here's what my
+configuration drift template looks like in Semaphore. Particularly, note the
+<strong>CLI args</strong> section.</p>
+<div class="full-width">
+    <img src="https:&#x2F;&#x2F;elrod.me&#x2F;img&#x2F;semaphore-dagd-deployment-template.png" alt="configuration drift template" width="1211" height="662" loading="lazy"/>
+</div>
+<p>And here is the scheduler entry:</p>
+<div class="full-width">
+    <img src="https:&#x2F;&#x2F;elrod.me&#x2F;img&#x2F;semaphore-dagd-config-drift-scheduled.png" alt="semaphore schedule entry" width="510" height="822" loading="lazy"/>
+</div>
+<h2 id="the-semaphore-rest-api">The Semaphore REST API</h2>
+<p>There is <a href="https://docs.semaphoreui.com/administration-guide/api/">documentation</a>
+on how to set up a token and access the Semaphore REST API.</p>
+<p>Creating a token became much easier in version 2.14, which (as of this writing)
+is in Beta. It provides a UI for creating tokens easily!</p>
+<p>Once you have a token, you can use it to check the
+<code>/api/project/PROJECT_ID/tasks/last</code> endpoint, which will show the last 200
+tasks (template runs) for the given <code>PROJECT_ID</code>.</p>
+<p>You can write a short script or use <code>jq</code> to parse the JSON, look for the
+<code>template_id</code> with the template you made above, and check the status of it. The
+latest run will always be the <em>first</em> in the list of tasks returned from the
+API.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>And that's really all there is to it. It's a bit of a roundabout way to keep
+tabs on configuration drift, but it works. I've tied it into my existing
+monitoring systems, and have had no problems so far.</p>
+<p>Using the callback plugin approach to return a failure exit code on changes is
+something that others might not have thought of, and I hadn't seen it done
+before, so I thought I would write up a short post here showing how it could be
+done.</p>
+<p>Good luck, have fun, and happy automating!</p>
+
+        </section>
+
+        
+        
+        
+
+        
+            
+            
+            
+
+            
+        
+            
+            
+            
+
+            
+        
+            
+            
+            
+
+            
+        
+            
+            
+            
+
+            
+        
+        
+
+    </article>
+</main>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@latest/dist/mermaid.min.js"></script><span id="copy-success" class="hidden">
+        Copied!
+    </span>
+    <span id="copy-init" class="hidden">
+        Copy code to clipboard
+    </span>
+    <script defer src="https://elrod.me/js/copyCodeToClipboard.min.js"></script>
+
+
+    </div>
+    <footer>
+    <section>
+        <nav class="socials nav-navs"><ul><li>
+                        <a class="nav-links no-hover-padding social" rel=""  href="https://elrod.me/atom.xml">
+                        <img loading="lazy" alt="feed" title="feed" src="https://elrod.me/social_icons/rss.svg">
+                        </a>
+                    </li>
+                        
+                            <li>
+                                <a class="nav-links no-hover-padding social" rel=" me"  href="https://github.com/relrod">
+                                    <img loading="lazy" alt="github" title="github" src="https://elrod.me/social_icons/github.svg">
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a class="nav-links no-hover-padding social" rel=" me"  href="https://linkedin.com/in/elrodrick">
+                                    <img loading="lazy" alt="linkedin" title="linkedin" src="https://elrod.me/social_icons/linkedin.svg">
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a class="nav-links no-hover-padding social" rel=" me"  href="https://bsky.app/profile/relrod.bsky.social">
+                                    <img loading="lazy" alt="bluesky" title="bluesky" src="https://elrod.me/social_icons/bluesky.svg">
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a class="nav-links no-hover-padding social" rel=" me"  href="https://fosstodon.org/@relrod">
+                                    <img loading="lazy" alt="mastodon" title="mastodon" src="https://elrod.me/social_icons/mastodon.svg">
+                                </a>
+                            </li>
+                        
+                    
+                </ul>
+            
+        </nav>
+
+        
+        <nav class="nav-navs">
+        </nav>
+
+        <div class="credits">
+            <small>
+                
+
+                
+                Powered by
+                <a rel=""  href="https://www.getzola.org">Zola</a>
+                &amp;
+                <a rel=""  href="https://github.com/welpo/tabi">tabi</a>
+
+                </small>
+        </div>
+    </section>
+
+    <div id="searchModal" class="search-modal js" role="dialog" aria-labelledby="modalTitle">
+    <h1 id="modalTitle" class="visually-hidden">Search</h1>
+    <div id="modal-content">
+        <div id="searchBar">
+            <div class="search-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                    <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/>
+                </svg>
+            </div>
+            <input id="searchInput" role="combobox" autocomplete="off" spellcheck="false" aria-expanded="false" aria-controls="results-container" placeholder="Search…"/>
+            <div id="clear-search" class="close-icon interactive-icon" tabindex="0" role="button" title="Clear search">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
+                </svg>
+            </div>
+        </div>
+        <div id="results-container">
+            <div id="results-info"><span id="zero_results"> No results</span>
+                <span id="one_results"> $NUMBER result</span>
+                <span id="many_results"> $NUMBER results</span><span id="two_results"> $NUMBER results</span>
+                <span id="few_results"> $NUMBER results</span>
+            </div>
+            <div id="results" role="listbox"></div>
+        </div>
+    </div>
+</div>
+</footer>
+
+</body>
+
+</html>

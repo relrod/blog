@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+    <meta charset="UTF-8"><meta http-equiv="Content-Security-Policy"
+content="default-src 'self';font-src &#x27;self&#x27; data: 'self';img-src &#x27;self&#x27; https:&#x2F;&#x2F;* data:;media-src &#x27;self&#x27;;style-src &#x27;self&#x27; 'unsafe-inline';frame-src player.vimeo.com https:&#x2F;&#x2F;www.youtube-nocookie.com;connect-src 'self';script-src 'self'  cdn.jsdelivr.net 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base" content="https://elrod.me">
+
+    
+    <title>rick elrod • Becoming multilingual in German and Rust</title>
+
+    
+    
+    
+
+    
+    
+        
+            
+            
+                
+                    <link rel="alternate" type="application/atom+xml" title="rick elrod - Atom Feed" href="https://elrod.me/atom.xml">
+                
+            
+        
+    
+
+    
+    
+    
+        
+            <link rel="stylesheet" href="https://elrod.me/custom_subset.css?h=0b9535a28bc3d5bf2321">
+        
+    
+
+    
+        <link rel="stylesheet" href="https://elrod.me/main.css?h=fa464346b37e382872db" />
+        <link rel="stylesheet" href="https://elrod.me/custom.css?h=800fc81afaef00fee8fc" />
+        <link rel="stylesheet" href="https://elrod.me/skins/blue.css?h=a4dc1e94d3f5759784d2" />
+
+    <meta name="color-scheme" content="light dark" />
+        <meta name="description" content="Using Rust to automate the import of media into the language-learning platform LingQ." />
+        <meta property="og:description" content="Using Rust to automate the import of media into the language-learning platform LingQ." />
+
+    
+
+    <meta property="og:title" content="Becoming multilingual in German and Rust" />
+    <meta property="og:type" content="article" />
+
+    
+<meta property="og:locale" content="en_GB" />
+
+    <meta property="og:url" content="https:&#x2F;&#x2F;elrod.me&#x2F;blog&#x2F;becoming-multilingual-rust-german-lingq&#x2F;" /><meta property="og:site_name" content="rick elrod">
+        <noscript><link rel="stylesheet" href="https://elrod.me/no_js.css"/></noscript>
+        <script type="text/javascript" src="https://elrod.me/js/initializeTheme.min.js"></script>
+        <script defer src="https://elrod.me/js/themeSwitcher.min.js"></script><meta name="fediverse:creator" content="@relrod@fosstodon.org" />
+        <script defer src="https://elrod.me/js/searchElasticlunr.min.js?h=3626c0ef99daa745b31e"></script>
+
+        </head>
+
+
+<body>
+    <header>
+    <nav class="navbar">
+        <div class="nav-title">
+            <a class="home-title" href="https://elrod.me">rick elrod</a>
+        </div>
+            <div class="nav-navs">
+                <ul>
+                        
+                            <li>
+                                <a class="nav-links no-hover-padding" href="https://elrod.me/blog/">blog
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a class="nav-links no-hover-padding" href="https://elrod.me/archive/">archive
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a class="nav-links no-hover-padding" href="https://elrod.me/tags/">tags
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a class="nav-links no-hover-padding" href="https://elrod.me/projects/">projects
+                                </a>
+                            </li>
+                        <li class="menu-icons-container">
+                        <ul class="menu-icons-group">
+                            <li class="js menu-icon">
+                                <div role="button" tabindex="0" id="search-button" class="search-icon interactive-icon" title="Click or press $SHORTCUT to open search" aria-label="Click or press $SHORTCUT to open search">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                                        <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/>
+                                    </svg>
+                                </div>
+                            </li>
+
+                            
+                            
+
+                            <li class="theme-switcher-wrapper js"><div
+        title="Toggle dark&#x2F;light mode"
+        class="theme-switcher"
+        tabindex="0"
+        role="button"
+        aria-label="Toggle dark mode"
+        aria-pressed="false">
+    </div><div
+        title="Reset mode to default"
+        class="theme-resetter arrow"
+        tabindex="0"
+        role="button"
+        aria-hidden="true"
+        aria-label="Reset mode to default">
+    </div>
+
+</li>
+</ul>
+                    </li>
+                </ul>
+            </div>
+        
+    </nav>
+</header>
+
+    <div class="content">
+
+        
+        
+
+
+
+
+<main>
+    <article>
+        <h1 class="article-title">
+            Becoming multilingual in German and Rust
+        </h1>
+
+        
+        <h2 style="font-style: italic; font-size: 1rem; color: var(--meta-color);">
+            Using Rust to automate the import of media into the language-learning platform LingQ.
+        </h2>
+        <hr style="margin-top: 1rem;" />
+        
+
+        <ul class="meta">
+                <li>7th Mar 2025</li><li title="2576 words"><span class='separator' aria-hidden='true'>•</span>13 min read</li><li class="tag"><span class='separator' aria-hidden='true'>•</span>Tags:&nbsp;</li><li class="tag"><a href="https://elrod.me/tags/rust/">rust</a>,&nbsp;</li><li class="tag"><a href="https://elrod.me/tags/german/">german</a>,&nbsp;</li><li class="tag"><a href="https://elrod.me/tags/open-source/">open-source</a></li>
+        </ul>
+
+        <section class="body"><h1 id="background">Background</h1>
+<p>I enjoy learning new technologies and programming paradigms and languages. I
+always have. And it's something that I've had less time to do over the past
+several years.</p>
+<p>In 2020, I switched roles away from my position on the Fedora Infrastructure
+team and into a more developer-oriented role on the Ansible team. When I did
+that, something unfortunate that happened without me even realizing until much
+later was that I committed less time to my side projects. You could almost say
+that I burned out: I was writing code for work, so I felt less need to
+experiment with it off the clock.</p>
+<p>In practice, this had some unfortunate ramifications. Above all, it meant that I
+fell a bit behind on new languages and stacks that weren't used in my dayjob
+work. And now it's my goal to back-fill some of that knowledge and experience.</p>
+<p>In late 2023, I moved to Germany, and learning German has been a process for me,
+ever since. Before my move, I learned about the online reading platform
+<a href="https://lingq.com">LingQ</a> and began using it rather extensively.</p>
+<h2 id="what-is-lingq">What is LingQ?</h2>
+<p>LingQ is a platform for language-learning that lets you import books, articles,
+and other kinds of media to read. It will track which words you've seen before,
+which words you know, and how well you know them (self-graded). As you come
+across new words, it will show definitions that other users have added for that
+word, or allow you to look up the definition and add your own.</p>
+<p>Although it has its fair share of issues, outages, and downtimes, which I could
+talk about at length, I've nevertheless found it the best platform for this sort
+of thing, and I have to give it credit: My German would not be where it is right
+now, without having used it.</p>
+<h1 id="automating-importing-content-into-lingq">Automating Importing Content into LingQ</h1>
+<h2 id="my-first-attempt">My first attempt</h2>
+<p>Somewhere along the way, I developed a fairly extensive Python toolset for
+importing content into LingQ. I never open-sourced it, for a number of reasons
+-- not the least of which, it was hacked together and never meant to become the
+monster it became. The toolset handled a number of cases:</p>
+<ul>
+<li>First, I wanted to be able to import "syndicated content" automatically into
+LingQ. Things like podcasts, YouTube videos from creators that I enjoy, even
+daily news articles from sites like <a href="https://www.nachrichtenleicht.de">Nachrichten
+Leicht</a>.</li>
+<li>I also wanted to be able to import random articles or videos I found. (LingQ
+has a browser extension for doing this; I wanted something more general that I
+could use for local content, too).</li>
+</ul>
+<p>Over time, this Python toolset I built up became fairly heavy-handed. It did a
+<em>lot</em>. And over all, <em>it worked well, but it be became harder to maintain</em>. The
+usecases and scope grew over time.</p>
+<p>For example: When you import audio content into LingQ, it can use AI to
+transcribe the content to generate LingQ lessons. Pretty neat, and overall, it
+almost works well, but it doesn't make any effort to split up the text into
+paragraphs based on who was speaking, which was something that annoyed me. So my
+Python toolchain grew the ability to send audio content to
+<a href="https://platform.openai.com/docs/guides/speech-to-text">OpenAI's Whisper API</a>,
+take that response, feed it to a
+<a href="https://platform.openai.com/docs/guides/text-generation">text generation model</a>
+to massage it a bit to make it more readable instead of just being a giant text
+blob, and upload <em>that</em> transcript instead.</p>
+<p>Most of the media downloading was ultimately powered by the amazing
+<a href="https://github.com/yt-dlp/yt-dlp">yt-dlp</a> project. When you have a link to some
+media (be it YouTube, an mp3, or some video on some news side), there's a good
+chance that yt-dlp will know how to grab that media.</p>
+<p>The Python code was fine. It ran in GitHub Actions for a long time,
+<a href="https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#schedule">on a
+schedule</a>.
+But because it grew in scope so much, it became hard to maintain, and it was
+time to redesign it.</p>
+<p>So. I had a new side project. And by now, I had realized and acknowledged that I
+needed to learn some new tools and start branching out again instead of just
+focusing on the dayjob stack. So?</p>
+<h1 id="cut-to-rust">Cut-to: Rust</h1>
+<p>I made the decision to start learning the Rust language. Rust is extremely
+interesting to me as someone who enjoys delving into type systems and
+programming language design. Rust solves entire classes of memory-related bugs
+due to its type and lifetime systems. I believe it has a lot of really neat
+ideas plus a very active community. I've tinkered with it before, but never to
+any serious degree, and it was time.</p>
+<p>Ultimately, what I wanted first and foremost was a system that would let me
+specify different "media feeds" and import the latest content from them into
+LingQ, in whatever way made sense for that specific feed. LingQ is broken into
+specific "courses" each with an ID, so each feed will import "lessons" into a
+specific course.</p>
+<p>LingQ has <a href="https://www.lingq.com/en/accounts/apikey/">a page</a> that will generate
+an account API key, but the API is largely undocumented. Understanding the API
+took a fair bit of reverse engineering, which is perhaps best saved for another
+post. But suffice it to say, between examining what the site itself does when a
+lesson is created (by watching the browser inspector), and decompressing the
+"official" LingQ browser extension, I was able to understand the endpoints
+enough to do what I needed to do, which was just to import lessons and get a
+list of existing lessons.</p>
+<p>Here's what I wanted at a high level:</p>
+
+
+<noscript>
+    <strong>⚠️ JavaScript is required to render the diagram.</strong>
+</noscript>
+<pre class="mermaid invertible-image">
+    graph LR
+    A[lqcli]
+
+    subgraph "GET Syndication Feeds"
+    B[Podcast ...]
+    C[YouTuber ...]
+    end
+
+    A --> B
+    A --> C
+
+    F[Process each feed] --> G[Upload new episodes as lessons to LingQ if necessary]
+
+    B --> F
+    C --> F
+</pre>
+<h1 id="feed-processing">Feed Processing</h1>
+<p>What does processing each feed look like? Well, we know that we don't want to
+upload a lesson if we've already uploaded one. We could keep track of that state
+locally somehow, but I wanted this thing to work in Github Actions (or any other
+kind of automation pipeline) and not have to worry about that. Besides, LingQ
+knows which lessons it has. So we can just ask it. We can get a list of lessons
+(episodes, in our case) in each course, and just compare the names. Sure, if an
+episode gets renamed, it'll get uploaded again -- but in practice this is very
+rare.</p>
+<p>Now, for some sources, we can rely on the built-in LingQ transcription, as
+mentioned earlier. But for some, we want to run it through Whisper ourselves, so
+that we can do some post-processing on it to clean it up a bit before we turn it
+into a LingQ lesson. The feed processing ends up looking like this:</p>
+<ul>
+<li>Query LingQ for existing lessons in the relevant course for the feed</li>
+<li>Parse the latest N entries (episodes) from the feed</li>
+<li>Compare those N entries against the latest N lessons in the LingQ course</li>
+<li>If we find a match, we're done, move to the next episode</li>
+<li>If not, then we need to import a lesson:
+<ul>
+<li>Download the media (usually via <code>yt-dlp</code>, but other "fetchers" could be
+added to the code and referenced in config)</li>
+<li>(Optionally) Send the audio to OpenAI to get a transcript
+<ul>
+<li>Perhaps in the future, be able to run Whisper locally</li>
+</ul>
+</li>
+<li>(If we did transcript in the last step) post-process the transcription to
+make it look pretty</li>
+<li>Take the audio, and the transcript if we have one, and upload it as a
+lesson.</li>
+</ul>
+</li>
+</ul>
+<p>Well, that's relatively easy enough for the common case. There are other cases
+that this doesn't handle, that the Python code <em>does</em> already handle. For
+example, the amazing <a href="https://www.easygerman.org">Easy German</a> Podcast publishes
+transcripts for members -- and these transcripts are much better than anything
+Whisper can come up with; they are already pre-tagged with the speaker and
+everything! So being able to download the archive that includes those
+transcripts and pull out the appropriate one is kind of an edge-case that would
+be nice to have. Not necessary, but something the Python code does and that
+would be good to port to the Rust version in the future.</p>
+<h1 id="where-lqcli-stands-right-now">Where <code>lqcli</code> stands right now</h1>
+<p>All of this is still very much a work in progress. The code is
+<a href="https://github.com/relrod/lqcli">on GitHub</a>, but is not nearly complete yet. In
+fact, being one of my first ever Rust projects, it's quite messy, and I find
+myself refactoring it each time I work on it. But this is part of the fun, for
+me, and most importantly, part of the learning process.</p>
+<p>Let's talk about what currently works.</p>
+<h4 id="config-file-parsing">Config file parsing</h4>
+<p>It will look for a config file in <code>~/.lqcli.toml</code> where you can define your
+LingQ API key, your OpenAI API key, and your sources (feeds) for importing and
+monitoring.</p>
+<p>Here's a brief view of what my config file looks like:</p>
+<pre data-lang="toml" data-name="~/.lqcli.toml" class="language-toml z-code"><code class="language-toml" data-lang="toml" data-name="~/.lqcli.toml"><span class="z-source z-toml"><span class="z-punctuation z-definition z-table z-begin z-toml">[</span><span class="z-meta z-tag z-table z-toml"><span class="z-entity z-name z-table z-toml">lingq</span></span><span class="z-punctuation z-definition z-table z-end z-toml">]</span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">api_key</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>...<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span><span class="z-source z-toml">
+</span><span class="z-source z-toml"><span class="z-punctuation z-definition z-table z-begin z-toml">[</span><span class="z-meta z-tag z-table z-toml"><span class="z-entity z-name z-table z-toml">openai</span></span><span class="z-punctuation z-definition z-table z-end z-toml">]</span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">api_key</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>...<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span><span class="z-source z-toml">
+</span><span class="z-source z-toml"><span class="z-punctuation z-definition z-table z-array z-begin z-toml">[[</span><span class="z-meta z-tag z-table z-array z-toml"><span class="z-entity z-name z-table z-toml">sources</span></span><span class="z-punctuation z-definition z-table z-array z-end z-toml">]]</span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">download_method</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>yt-dlp<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">name</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>14 Minuten<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">url</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>https://anchor.fm/s/f60c4864/podcast/rss<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">course_id</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-constant z-numeric z-integer z-toml">1760029</span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">language</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>de<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">tags</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-punctuation z-definition z-array z-begin z-toml">[</span><span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>daily<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span><span class="z-punctuation z-definition z-array z-end z-toml">]</span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">transcript_via</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>openai<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span><span class="z-source z-toml">
+</span><span class="z-source z-toml"><span class="z-punctuation z-definition z-table z-array z-begin z-toml">[[</span><span class="z-meta z-tag z-table z-array z-toml"><span class="z-entity z-name z-table z-toml">sources</span></span><span class="z-punctuation z-definition z-table z-array z-end z-toml">]]</span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">url</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>https://www.youtube.com/feeds/videos.xml?playlist_id=PL3936178A38BB5F87<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">course_id</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-constant z-numeric z-integer z-toml">1328855</span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">language</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>de<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">tags</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-punctuation z-definition z-array z-begin z-toml">[</span><span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>daily<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span><span class="z-punctuation z-definition z-array z-end z-toml">]</span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">name</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>Easy German<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span><span class="z-source z-toml">
+</span><span class="z-source z-toml"><span class="z-punctuation z-definition z-table z-array z-begin z-toml">[[</span><span class="z-meta z-tag z-table z-array z-toml"><span class="z-entity z-name z-table z-toml">sources</span></span><span class="z-punctuation z-definition z-table z-array z-end z-toml">]]</span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">url</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>https://www.youtube.com/feeds/videos.xml?playlist_id=PLk1fjOl39-53GxQIn1Hxdouokf0J0SDpl<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">course_id</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-constant z-numeric z-integer z-toml">1328855</span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">language</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>de<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">name</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>Super Easy German<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">tags</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-punctuation z-definition z-array z-begin z-toml">[</span><span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>daily<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span><span class="z-punctuation z-definition z-array z-end z-toml">]</span>
+</span><span class="z-source z-toml">
+</span><span class="z-source z-toml"><span class="z-comment z-line z-number-sign z-toml"><span class="z-punctuation z-definition z-comment z-toml">#</span> ...</span>
+</span></code></pre>
+<p>The first source I list (the awesome "<a href="https://14minuten.de">14 Minuten</a>"
+podcast for German learners) is a somewhat "full" example. The <em>default</em>
+(and indeed, <em>only</em>, at this point in time) <code>download_method</code> is <code>yt-dlp</code> so
+specifying it is unnecessary, but it's there as an example. Similar for
+<code>transcript_via</code>, the tool will transcribe media (using OpenAI) by default.</p>
+<p>The <code>tags</code> feature is a feature that I added fairly early on - it does not exist
+in the Python version, and it's something I wanted. The main purpose is that I
+want to be able to specify <em>when</em> certain feeds get checked. Let's say that I
+run <code>lqcli</code> in automation every 6 hours. There is no point in checking a feed
+that I <em>know</em> will only release content at <em>most</em> once per day. So having the
+feeds tagged, means I can schedule how <code>lqcli</code> is run (in automation) and have
+one automation that runs daily (passing <code>--tags daily</code> to only check those), and
+another automation that runs every 6 hours (passing <code>--tags 6hours</code> or whatever
+I choose to call the tag).</p>
+<h4 id="argument-and-subcommand-parsing">Argument and Subcommand Parsing</h4>
+<p>Using <a href="https://docs.rs/clap/latest/clap/">clap</a> to parse subcommands and
+arguments was downright <em>fun</em>. What a cool crate! It provides not only a
+builder-style DSL for creating command argument parsers, but also a way to
+simply specify the command hierarchy as logical types (structs and enums) and
+derive traits and use macros to configure the behavior of the parser right
+in-line with the type definition. The doc comments become the help text for the
+commands and flags.</p>
+<p>In <code>lqcli</code> I opted for the derive method and my code ended up looking like this:</p>
+<pre data-lang="rust" class="language-rust z-code"><code class="language-rust" data-lang="rust"><span class="z-source z-rust"><span class="z-meta z-annotation z-rust"><span class="z-punctuation z-definition z-annotation z-rust">#</span><span class="z-punctuation z-section z-group z-begin z-rust">[</span><span class="z-variable z-annotation z-rust">derive</span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span></span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust">Parser<span class="z-punctuation z-separator z-rust">,</span> Debug</span></span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span></span><span class="z-punctuation z-section z-group z-end z-rust">]</span></span>
+</span><span class="z-source z-rust"><span class="z-meta z-annotation z-rust"><span class="z-punctuation z-definition z-annotation z-rust">#</span><span class="z-punctuation z-section z-group z-begin z-rust">[</span><span class="z-variable z-annotation z-rust">command</span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span></span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust">version<span class="z-punctuation z-separator z-rust">,</span> styles <span class="z-keyword z-operator z-rust">=</span> <span class="z-meta z-function-call z-rust"><span class="z-variable z-function z-rust">styles</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span></span><span class="z-meta z-function-call z-rust"><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span></span></span></span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span></span><span class="z-punctuation z-section z-group z-end z-rust">]</span></span>
+</span><span class="z-source z-rust"><span class="z-comment z-line z-documentation z-rust"><span class="z-punctuation z-definition z-comment z-rust">///</span> Command-line interface to import content into language-learning platforms
+</span></span><span class="z-source z-rust"><span class="z-comment z-line z-documentation z-rust"><span class="z-punctuation z-definition z-comment z-rust">///</span> such as LingQ.
+</span></span><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-storage z-type z-struct z-rust">struct</span> </span><span class="z-meta z-struct z-rust"><span class="z-entity z-name z-struct z-rust">Cli</span> </span><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust">    <span class="z-comment z-line z-documentation z-rust"><span class="z-punctuation z-definition z-comment z-rust">///</span> Path to the configuration file to create or read from
+</span></span></span></span><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust">    <span class="z-meta z-annotation z-rust"><span class="z-punctuation z-definition z-annotation z-rust">#</span><span class="z-punctuation z-section z-group z-begin z-rust">[</span><span class="z-variable z-annotation z-rust">arg</span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span></span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust">short<span class="z-punctuation z-separator z-rust">,</span> long<span class="z-punctuation z-separator z-rust">,</span> default_value <span class="z-keyword z-operator z-rust">=</span> <span class="z-string z-quoted z-double z-rust"><span class="z-punctuation z-definition z-string z-begin z-rust">&quot;</span>~/.lqcli.toml<span class="z-punctuation z-definition z-string z-end z-rust">&quot;</span></span></span></span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span></span><span class="z-punctuation z-section z-group z-end z-rust">]</span></span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust">    <span class="z-variable z-other z-member z-rust">config_file</span><span class="z-punctuation z-separator z-type z-rust">:</span> String,
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust">
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust">    <span class="z-comment z-line z-documentation z-rust"><span class="z-punctuation z-definition z-comment z-rust">///</span> The category of action to perform
+</span></span></span></span><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust">    <span class="z-meta z-annotation z-rust"><span class="z-punctuation z-definition z-annotation z-rust">#</span><span class="z-punctuation z-section z-group z-begin z-rust">[</span><span class="z-variable z-annotation z-rust">command</span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span></span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust">subcommand</span></span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span></span><span class="z-punctuation z-section z-group z-end z-rust">]</span></span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust">    <span class="z-variable z-other z-member z-rust">subcommand</span><span class="z-punctuation z-separator z-type z-rust">:</span> MainSubcommand,
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust"></span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span></span>
+</span><span class="z-source z-rust">
+</span><span class="z-source z-rust"><span class="z-meta z-annotation z-rust"><span class="z-punctuation z-definition z-annotation z-rust">#</span><span class="z-punctuation z-section z-group z-begin z-rust">[</span><span class="z-variable z-annotation z-rust">derive</span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span></span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust">Debug<span class="z-punctuation z-separator z-rust">,</span> Subcommand</span></span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span></span><span class="z-punctuation z-section z-group z-end z-rust">]</span></span>
+</span><span class="z-source z-rust"><span class="z-meta z-enum z-rust"><span class="z-storage z-type z-enum z-rust">enum</span> <span class="z-entity z-name z-enum z-rust">MainSubcommand</span> <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-enum z-rust"><span class="z-meta z-block z-rust">    <span class="z-comment z-line z-documentation z-rust"><span class="z-punctuation z-definition z-comment z-rust">///</span> Import content from periodicals such as podcasts or YouTube channels
+</span></span></span></span><span class="z-source z-rust"><span class="z-meta z-enum z-rust"><span class="z-meta z-block z-rust">    <span class="z-meta z-annotation z-rust"><span class="z-punctuation z-definition z-annotation z-rust">#</span><span class="z-punctuation z-section z-group z-begin z-rust">[</span><span class="z-variable z-annotation z-rust">command</span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span></span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust">subcommand</span></span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span></span><span class="z-punctuation z-section z-group z-end z-rust">]</span></span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-enum z-rust"><span class="z-meta z-block z-rust">    Sources<span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>SourcesSubcommand</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-separator z-rust">,</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-enum z-rust"><span class="z-meta z-block z-rust">
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-enum z-rust"><span class="z-meta z-block z-rust">    <span class="z-comment z-line z-documentation z-rust"><span class="z-punctuation z-definition z-comment z-rust">///</span> Transcribe a single piece of content
+</span></span></span></span><span class="z-source z-rust"><span class="z-meta z-enum z-rust"><span class="z-meta z-block z-rust">    Transcribe<span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>TranscribeSubcommand</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-separator z-rust">,</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-enum z-rust"><span class="z-meta z-block z-rust">
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-enum z-rust"><span class="z-meta z-block z-rust">    <span class="z-comment z-line z-documentation z-rust"><span class="z-punctuation z-definition z-comment z-rust">///</span> Import a single piece of content
+</span></span></span></span><span class="z-source z-rust"><span class="z-meta z-enum z-rust"><span class="z-meta z-block z-rust">    Adhoc<span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>AdhocSubcommand</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-separator z-rust">,</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-enum z-rust"><span class="z-meta z-block z-rust"></span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span></span>
+</span><span class="z-source z-rust">
+</span><span class="z-source z-rust"><span class="z-meta z-annotation z-rust"><span class="z-punctuation z-definition z-annotation z-rust">#</span><span class="z-punctuation z-section z-group z-begin z-rust">[</span><span class="z-variable z-annotation z-rust">derive</span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span></span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust">Args<span class="z-punctuation z-separator z-rust">,</span> Debug</span></span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span></span><span class="z-punctuation z-section z-group z-end z-rust">]</span></span>
+</span><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-storage z-type z-struct z-rust">struct</span> </span><span class="z-meta z-struct z-rust"><span class="z-entity z-name z-struct z-rust">TranscribeSubcommand</span> </span><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust">    <span class="z-comment z-line z-documentation z-rust"><span class="z-punctuation z-definition z-comment z-rust">///</span> The URL of the content
+</span></span></span></span><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust">    <span class="z-variable z-other z-member z-rust">url</span><span class="z-punctuation z-separator z-type z-rust">:</span> String,
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust">    <span class="z-comment z-line z-documentation z-rust"><span class="z-punctuation z-definition z-comment z-rust">///</span> The language code of the content
+</span></span></span></span><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust">    <span class="z-variable z-other z-member z-rust">language</span><span class="z-punctuation z-separator z-type z-rust">:</span> String,
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust">    <span class="z-comment z-line z-documentation z-rust"><span class="z-punctuation z-definition z-comment z-rust">///</span> How to download the content. Usually the default of &quot;yt-dlp&quot; is fine.
+</span></span></span></span><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust">    <span class="z-meta z-annotation z-rust"><span class="z-punctuation z-definition z-annotation z-rust">#</span><span class="z-punctuation z-section z-group z-begin z-rust">[</span><span class="z-variable z-annotation z-rust">arg</span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span></span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust">long<span class="z-punctuation z-separator z-rust">,</span> short <span class="z-keyword z-operator z-rust">=</span> &#39;m&#39;<span class="z-punctuation z-separator z-rust">,</span> default_value <span class="z-keyword z-operator z-rust">=</span> <span class="z-string z-quoted z-double z-rust"><span class="z-punctuation z-definition z-string z-begin z-rust">&quot;</span>yt-dlp<span class="z-punctuation z-definition z-string z-end z-rust">&quot;</span></span></span></span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span></span><span class="z-punctuation z-section z-group z-end z-rust">]</span></span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust">    <span class="z-variable z-other z-member z-rust">download_method</span><span class="z-punctuation z-separator z-type z-rust">:</span> <span class="z-meta z-path z-rust">fetch<span class="z-punctuation z-accessor z-rust">::</span></span>DownloadMethod,
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust"></span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span></span>
+</span><span class="z-source z-rust">
+</span><span class="z-source z-rust"><span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> ...
+</span></span></code></pre>
+<p>There is more to it than this, but this gives you an idea of how <code>clap</code>
+works. The <code>clap</code> documentation (linked above) is amazing and they have plenty
+of examples in their source repository.</p>
+<p>Using <code>clap</code> also gave us an awesome <code>-h/--help</code> system for free.</p>
+<h4 id="checking-lingq-and-asking-for-lessons">Checking LingQ and Asking for Lessons</h4>
+<p>The next bit that already works is using the
+<a href="https://docs.rs/reqwest/latest/reqwest/">reqwest</a> crate to query LingQ and ask
+for a list of lessons in a given course (by using the course ID number).</p>
+<h4 id="creating-a-lingq-lesson-in-a-course">Creating a LingQ Lesson In a Course</h4>
+<p>Extending on the above, it was easy enough to also add a method for creating a
+lesson in LingQ. I made a light abstraction over
+<a href="https://docs.rs/reqwest/latest/reqwest/struct.Client.html"><code>reqwest::Client</code></a>
+so that we could create a client and store that in some struct instance and
+re-use it. It also handles things like setting up the required <code>Authorization</code>
+header for authenticating to the LingQ API.</p>
+<h4 id="getting-a-transcript-from-openai-whisper-and-tweaking-it">Getting a Transcript from OpenAI Whisper and Tweaking It</h4>
+<p>Using <a href="https://docs.rs/async-openai/latest/async_openai/">async-openai</a>, I am
+able to send audio data to OpenAI and get a transcript back in German. I am
+then able to send it <em>back</em> to OpenAI and ask it to format it in a reasonable
+way.</p>
+<p>With these bits alone, I was able to implement a few subcommands:</p>
+<h4 id="lqcli-transcribe"><code>lqcli transcribe</code></h4>
+<p>This is a command I added primarily to test the OpenAI transcription
+functionality, but have found it useful enough to leave it as a command. It
+takes a URL to some media file, downloads it (using <code>yt-dlp</code> by default,
+overridable with an argument), then sends the downloaded audio data to OpenAI to
+transcribe it and post-process it before dumping out the transcription to
+standard out. It's basic, but it works. Currently, there's no way to override
+the post-process prompt in this command.</p>
+<h4 id="lqcli-sources-sync-t-tag-partially"><code>lqcli sources sync [-t TAG]</code> (partially)</h4>
+<p>This command is what will actually do the work of importing episodes that need
+to be imported into LingQ. Right now, it is capable of telling you which
+episodes need to be imported, but it doesn't actually do the full workflow
+yet. It's close, though. Filtering by tag (<code>-t</code>) does work.</p>
+<h4 id="lqcli-adhoc-partially"><code>lqcli adhoc</code> (partially)</h4>
+<p>This command imports an arbitrary piece of media at some URL, into LingQ. It
+doesn't currently handle local media (this is planned) - it expects media to
+come from a URL. You pass in the URL to the media, a title, the language code
+and the LingQ course ID, and it will do the rest: Download, transcribe,
+post-process the transcription, upload everything to LingQ. Optionally pass <code>-s</code>
+to skip transcription and let LingQ transcribe the content itself.</p>
+<h1 id="thoughts-and-what-i-ve-learned">Thoughts and What I've Learned</h1>
+<p>So there is still some work to do to finish up this project. It's rather niche,
+so I'm not sure anyone other than me will find it useful, but it's been a great
+project to learn Rust. I got hands on experience not only with Rust itself, but
+also with some really popular and cool libraries, like <code>clap</code> and <code>reqwest</code>, and
+it's conducive to two of my current goals: learning Rust and learning German.</p>
+<p>There are also some possible places to take this project to learn some more. For
+example, we could make requests concurrently, getting to play more with Rust's
+<code>async</code>/<code>await</code> functionality.</p>
+<p>But for now, it gave me a cool project to use to start learning Rust. And I'm
+glad for that: I'm really, really enjoying Rust so far.</p>
+<p>I've learned quite a bit about Rust through this project, though it's really
+only scratching the surface and I'm excited to learn much more. In addition to
+the more uninteresting bits (like getting more familiar with the syntax of
+Rust), I got to learn about borrowing and (indirectly) about lifetimes. I got to
+learn about the different representations of strings (which I had learned about
+in the <a href="https://doc.rust-lang.org/book/">Rust book</a> but, being a hands-on
+learner, it didn't really click until I got to play with them first-hand.</p>
+<p>I got to learn about project structure in Rust, how modules work. I got to learn
+about formatting and linting tools like <code>rustfmt</code> and <code>clippy</code> and about how to
+get a good development flow going for Rust in emacs. And of course, I got to
+learn how much I still have to learn.</p>
+<p>Largely, I just got (ever slightly) more comfortable with Rust and its ecosystem
+and wrote some real code for a real project, because that's how I learn
+best. And it was fun.</p>
+
+        </section>
+
+        
+        
+        
+
+        
+            
+            
+            
+
+            
+        
+            
+            
+            
+
+            
+        
+            
+            
+            
+
+            
+        
+            
+            
+            
+
+            
+        
+        
+
+    </article>
+</main>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@latest/dist/mermaid.min.js"></script><span id="copy-success" class="hidden">
+        Copied!
+    </span>
+    <span id="copy-init" class="hidden">
+        Copy code to clipboard
+    </span>
+    <script defer src="https://elrod.me/js/copyCodeToClipboard.min.js"></script>
+
+
+    </div>
+    <footer>
+    <section>
+        <nav class="socials nav-navs"><ul><li>
+                        <a class="nav-links no-hover-padding social" rel=""  href="https://elrod.me/atom.xml">
+                        <img loading="lazy" alt="feed" title="feed" src="https://elrod.me/social_icons/rss.svg">
+                        </a>
+                    </li>
+                        
+                            <li>
+                                <a class="nav-links no-hover-padding social" rel=" me"  href="https://github.com/relrod">
+                                    <img loading="lazy" alt="github" title="github" src="https://elrod.me/social_icons/github.svg">
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a class="nav-links no-hover-padding social" rel=" me"  href="https://linkedin.com/in/elrodrick">
+                                    <img loading="lazy" alt="linkedin" title="linkedin" src="https://elrod.me/social_icons/linkedin.svg">
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a class="nav-links no-hover-padding social" rel=" me"  href="https://bsky.app/profile/relrod.bsky.social">
+                                    <img loading="lazy" alt="bluesky" title="bluesky" src="https://elrod.me/social_icons/bluesky.svg">
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a class="nav-links no-hover-padding social" rel=" me"  href="https://fosstodon.org/@relrod">
+                                    <img loading="lazy" alt="mastodon" title="mastodon" src="https://elrod.me/social_icons/mastodon.svg">
+                                </a>
+                            </li>
+                        
+                    
+                </ul>
+            
+        </nav>
+
+        
+        <nav class="nav-navs">
+        </nav>
+
+        <div class="credits">
+            <small>
+                
+
+                
+                Powered by
+                <a rel=""  href="https://www.getzola.org">Zola</a>
+                &amp;
+                <a rel=""  href="https://github.com/welpo/tabi">tabi</a>
+
+                </small>
+        </div>
+    </section>
+
+    <div id="searchModal" class="search-modal js" role="dialog" aria-labelledby="modalTitle">
+    <h1 id="modalTitle" class="visually-hidden">Search</h1>
+    <div id="modal-content">
+        <div id="searchBar">
+            <div class="search-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                    <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/>
+                </svg>
+            </div>
+            <input id="searchInput" role="combobox" autocomplete="off" spellcheck="false" aria-expanded="false" aria-controls="results-container" placeholder="Search…"/>
+            <div id="clear-search" class="close-icon interactive-icon" tabindex="0" role="button" title="Clear search">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
+                </svg>
+            </div>
+        </div>
+        <div id="results-container">
+            <div id="results-info"><span id="zero_results"> No results</span>
+                <span id="one_results"> $NUMBER result</span>
+                <span id="many_results"> $NUMBER results</span><span id="two_results"> $NUMBER results</span>
+                <span id="few_results"> $NUMBER results</span>
+            </div>
+            <div id="results" role="listbox"></div>
+        </div>
+    </div>
+</div>
+</footer>
+
+</body>
+
+</html>
